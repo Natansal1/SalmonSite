@@ -1,0 +1,11 @@
+@import "../variables.scss";
+
+.not_found_container {
+   width: 100%;
+   height: 100%;
+   background-image: url(/images/oops.jpg);
+   background-size: contain;
+   background-repeat: no-repeat;
+   background-position: center;
+   background-color: #79b9c5;
+}

@@ -1,0 +1,45 @@
+@import "../variables.scss";
+
+.audio_player {
+   height: max(15vh, 100px);
+   padding: 1vh 2vw 1vw 4vh;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: space-evenly;
+   background-color: $faded-blue;
+   border-radius: 20px;
+   .audio_wave_player {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+
+      #waveform {
+         flex: 1;
+      }
+
+      .play_pause_icon_btn {
+         padding: 0;
+         color: $dark-blue;
+      }
+   }
+   .audio_title {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      color: $dark-blue;
+      font-size: 1.8rem;
+      font-weight: 650;
+      height: 100%;
+   }
+   
+   .audio_subtitle {
+      color: $dark-blue;
+      opacity: 0.8;
+      font-weight: 500;
+      height: 100%;
+      @include center-text();
+   }
+}

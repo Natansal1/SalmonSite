@@ -1,0 +1,33 @@
+@import "../variables.scss";
+
+.home_page {
+   padding: 2vh 0;
+   overflow-y: scroll;
+   .home_grid {
+      padding: max(1vh, 7px) max(1vw, 7px);
+   }
+   .home_child {
+      border-radius: 20px;
+      box-shadow: 6px 6px 4px rgba(0, 0, 0, 0.142);
+   }
+
+   .home_gif {
+      max-height: 65vh;
+   }
+
+   .home_family_img {
+      max-height: 60vh;
+   }
+   .home_text {
+      font-size: 2rem;
+      color: $dark-blue;
+      font-weight: 700;
+      background-color: $faded-blue;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: max(2vh, 10px) max(2vw, 10px);
+      height: max(20vh, 150px);
+   }
+}

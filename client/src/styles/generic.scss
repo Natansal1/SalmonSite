@@ -1,0 +1,45 @@
+@import "./variables.scss";
+
+.page {
+   margin-top: $header-height;
+   height: calc(100vh - $header-height);
+   width: 100%;
+}
+
+.menu {
+   .MuiList-root {
+      min-width: 150px;
+      padding: 1vh 1vw;
+      background-color: $faded-blue;
+   }
+   .menu_item {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: black;
+      font-size: 1rem;
+      border-radius: 5px;
+   }
+   .divider {
+      border-color: $dark-green;
+      opacity: 0.5;
+   }
+}
+
+/* width */
+::-webkit-scrollbar {
+   width: 7px;
+   height: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+   background: none;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+   background: $light-blue;
+   border-radius: 100vh;
+}

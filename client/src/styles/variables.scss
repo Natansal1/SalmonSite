@@ -1,0 +1,28 @@
+@import url("https://fonts.googleapis.com/css2?family=Assistant:wght@200;250;300;350;400;450;500;550;600;650;700;750;800;850;900&display=swap");
+
+/* FONTS */
+$main-font-family: Assistant;
+
+/* COLORS */
+$bg: #ffffff;
+$gray: #707070;
+
+//blue shades
+$light-blue: #6eb9cf;
+$dark-blue: #415d65;
+$faded-blue: #d9eff4;
+
+//green shades
+$success-green: #6dc79c;
+$bg-green: #f3faf7;
+$dark-green: #1b6d73;
+
+/* SIZES */
+$header-height: 8vh;
+
+/* MIXINS */
+@mixin center-text {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}

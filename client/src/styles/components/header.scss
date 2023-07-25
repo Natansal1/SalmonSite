@@ -1,0 +1,109 @@
+@import "../variables.scss";
+
+.header {
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   justify-content: space-evenly;
+   height: $header-height;
+   color: $gray;
+
+   .login_header_button {
+      margin-left: 1vw;
+      height: 70%;
+      width: auto;
+      aspect-ratio: 1/1;
+      background-color: $light-blue;
+   }
+
+   .header_title {
+      color: $dark-green;
+      @media screen and (max-width: 280px) {
+         font-size: 1.5rem;
+      }
+   }
+
+   .header_icon {
+      width: $header-height;
+      border-radius: 100vh;
+      height: 100%;
+      object-fit: cover;
+      object-position: right;
+   }
+
+   .header_links {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-right: 1vw;
+      height: $header-height;
+
+      .header_link {
+         box-sizing: content-box;
+         font-size: medium;
+         font-weight: 550;
+         font-size: 1.1rem;
+         margin: 0;
+         padding: 0;
+         height: 100%;
+         padding: 0 2vw;
+         display: flex;
+         flex-direction: row-reverse;
+         align-items: center;
+         justify-content: space-evenly;
+         gap: 0.5vw;
+      }
+
+      .bottom_header_line {
+         position: absolute;
+         border: 2px solid $light-blue;
+         border-radius: 100vh;
+         bottom: 0;
+         transition: 300ms;
+      }
+   }
+}
+.header_draw {
+   .menu_top_buttons_container {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-left: 8px;
+   }
+   .draw_paper {
+      left: 0;
+      right: auto;
+      min-width: 40vw;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      flex-direction: column;
+   }
+   .header_links_draw {
+      height: 100%;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 3vh;
+   }
+   .header_link {
+      width: 100%;
+      padding: 2vh 20px;
+      font-size: 1.2rem;
+      font-weight: 550;
+   }
+
+   .login_header_button {
+      background-color: $light-blue;
+   }
+}
+.draw_icon {
+   .MuiSvgIcon-root {
+      font-size: 5vh;
+      color: $light-blue;
+   }
+}
