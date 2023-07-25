@@ -4,9 +4,9 @@ import { Media } from "src/common/types";
 
 export type FamilyMemberDocument = HydratedDocument<FamilyMember>;
 
-const { ObjectId, String, Date } = mongoose.Schema.Types;
+const { ObjectId } = mongoose.Schema.Types;
 
-@Schema()
+@Schema({ collection: "FamilyMembers" })
 export class FamilyMember {
    @Prop({ type: ObjectId, auto: true })
    _id: string;
@@ -20,10 +20,10 @@ export class FamilyMember {
    @Prop({ type: Date, isRequired: true })
    DOB: Date;
 
-   @Prop({ type: Date, isRequired: false })
+   @Prop({ type: Date })
    DOD?: Date;
 
-   @Prop({ type: { type: String, src: String }, isRequired: false })
+   @Prop({ type: { type: String, src: String } })
    media?: Media;
 }
 
