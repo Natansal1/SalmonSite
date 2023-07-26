@@ -52,15 +52,6 @@ type Page = {
    sections: Section[];
 };
 
-type UUID = string;
-
-type Media = {
-   type: MediaType;
-   src: string;
-};
-
-type MediaType = "audio" | "video" | "image";
-
 type Section = {
    title: string;
    content: string;
@@ -70,3 +61,13 @@ type Section = {
       text: string;
    };
 };
+
+type UUID = string;
+
+type Media = {
+   type: MediaType;
+   src: string;
+   people?: FamilyMember["_id"][];
+};
+
+type MediaType = "audio" | "video" | "image";

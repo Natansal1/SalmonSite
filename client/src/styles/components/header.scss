@@ -103,7 +103,7 @@
 }
 .draw_icon {
    .MuiSvgIcon-root {
-      font-size: 5vh;
+      font-size: max(5vh, 3rem);
       color: $light-blue;
    }
 }

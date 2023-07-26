@@ -1,0 +1,65 @@
+@import "../variables.scss";
+
+.cards_lineup {
+   width: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: space-evenly;
+   max-height: 100%;
+   height: fit-content;
+   flex-wrap: wrap;
+   gap: 10px;
+   padding: 10px;
+   background-color: $faded-blue;
+   overflow-y: scroll;
+   overflow-x: hidden;
+}
+
+.image_card {
+   flex: 1;
+   min-width: max-content;
+   height: max(30vw, 200px);
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: space-between;
+
+   .card_action {
+      height: 100%;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+   }
+
+   .image_card_image {
+      background-size: cover;
+      background-repeat: no-repeat;
+      flex: 1;
+      width: 100%;
+   }
+
+   .card_content {
+      height: fit-content;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-evenly;
+      height: 30%;
+   }
+
+   .card_title,
+   .card_subtitle {
+      text-align: center;
+      font-size: 1.2rem;
+      color: $gray-text;
+   }
+   .card_title {
+      font-weight: 600;
+   }
+
+   .card_subtitle {
+      font-weight: 450;
+   }
+}

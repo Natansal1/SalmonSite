@@ -3,9 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import NotFoundPage from "./pages/NotFoundPage";
 import Home from "./pages/home-page/Home";
 import Header from "./components/Header/Header";
-import ImageViewer from "./components/ImageViewer/ImageViewer";
-
-const PREFIX_URL = "https://raw.githubusercontent.com/xiaolin/react-image-gallery/master/static/";
+import Pictures from "./pages/pictures-page/Pictures";
 
 const App: React.FC = () => {
    //prettier-ignore
@@ -14,6 +12,7 @@ const App: React.FC = () => {
          <Header />
          <Routes>
             <Route path="home" element={<Home />} />
+            <Route path="pictures" element={<Pictures />}/>
             
             <Route path="*" element={<NotFoundPage />}/>
          </Routes>

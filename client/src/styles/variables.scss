@@ -17,8 +17,11 @@ $success-green: #6dc79c;
 $bg-green: #f3faf7;
 $dark-green: #1b6d73;
 
+//gray
+$gray-text: #6c6c6c;
+
 /* SIZES */
-$header-height: 8vh;
+$header-height: max(8vh, 60px);
 
 /* MIXINS */
 @mixin center-text {
