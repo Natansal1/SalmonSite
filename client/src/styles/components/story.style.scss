@@ -3,9 +3,8 @@
 .stories_page {
    overflow-y: scroll;
    display: flex;
-   padding-top: 10vh;
-   padding-bottom: 10vh;
-   padding-right: 10vh;
+   padding: 5vw;
+
    height: fit-content;
    flex-wrap: wrap;
    gap: 30px;
@@ -15,7 +14,7 @@
       border-radius: 10px;
       border: 3px solid;
       display: flex;
-      box-shadow: 0 6px 12px rgba(0,0,0,.1607843137254902);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1607843137254902);
       align-items: center;
    }
 
@@ -23,10 +22,9 @@
       width: 40vh;
    }
    .one_photo {
-
-    img{
-        aspect-ratio: 1/1;
-    }
+      img {
+         aspect-ratio: 1/1;
+      }
    }
 
    .text_container {
@@ -34,14 +32,34 @@
       font-size: 2.8vh;
       padding-left: 2vh;
       height: 100%;
-      white-space: pre-wrap
-
-
+      white-space: pre-wrap;
    }
 
    .story_title {
       align-self: center;
       color: $gray-text;
       margin: 2vh 0 2vh 0;
+   }
+   
+   @media screen and (max-width: 950px) {
+      .story_container {
+         flex-direction: column;
+      }
+
+      .text_container {
+         max-width: 40vw;
+      }
+   }
+
+   @media screen and (max-width: 450px) {
+      .story_container {
+         width: 90vw;
+      }
+
+      .text_container{
+         max-width: 90%;
+         padding-bottom: 2vh;
+         padding-left: unset;
+      }
    }
 }
