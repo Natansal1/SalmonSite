@@ -18,10 +18,25 @@ interface ImageViewerProps {
       description?: string;
    } & Media)[];
    className?: string;
+   showNav?: boolean;
+   showPlayButton?: boolean;
+   showBullets?: boolean;
+   showThumbnails?: boolean;
+   showIndex?: boolean;
+   showFullscreenButton?: boolean;
 }
 
 const ImageViewer: React.FC<ImageViewerProps> = (props) => {
-   const { media = [], className } = props;
+   const {
+      media = [],
+      className,
+      showBullets = true,
+      showFullscreenButton = true,
+      showIndex = true,
+      showNav = true,
+      showPlayButton = true,
+      showThumbnails = true,
+   } = props;
    const galleryRef = useRef<ImageGallery | null>(null);
 
    const items = useMemo<ReactImageGalleryItem[]>(
@@ -58,7 +73,6 @@ const ImageViewer: React.FC<ImageViewerProps> = (props) => {
    if (items.length === 0) return null;
 
    return (
-      <div className="page">
          <ImageGallery
             items={items}
             onClick={() =>
@@ -68,13 +82,13 @@ const ImageViewer: React.FC<ImageViewerProps> = (props) => {
             infinite
             thumbnailPosition="bottom"
             ref={galleryRef}
-            showFullscreenButton
+            showFullscreenButton={showFullscreenButton}
             autoPlay
-            showPlayButton={items.length > 1}
-            showBullets={items.length > 1}
-            showThumbnails={items.length > 1}
-            showIndex={items.length > 1}
-            showNav={items.length > 1}
+            showPlayButton={showPlayButton && items.length > 1}
+            showBullets={showBullets && items.length > 1}
+            showThumbnails={showThumbnails && items.length > 1}
+            showIndex={showIndex && items.length > 1}
+            showNav={showNav && items.length > 1}
             slideDuration={300}
             slideInterval={3500}
             additionalClass={clsx(className, "image_gallery", {
@@ -97,7 +111,6 @@ const ImageViewer: React.FC<ImageViewerProps> = (props) => {
                </IconButton>
             )}
          />
-      </div>
    );
 };
 

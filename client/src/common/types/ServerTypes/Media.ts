@@ -4,4 +4,8 @@ export type Media = {
    people?: string[]; //array of ids
 };
 
-export type MediaType = "image" | "video" | "audio";
+export enum MediaType {
+   IMAGE = "image",
+   VIDEO = "video",
+   AUDIO = "audio",
+}
