@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import YouTube from "react-youtube";
+import React, { useRef, useState } from "react";
+import YouTube, { YouTubeEvent } from "react-youtube";
 import ImageGallery from "react-image-gallery";
 import { youtubeParser } from "../../common/functions";
 
@@ -7,15 +7,23 @@ interface VideoComponentProps {
    src: string;
    galleryRef: React.MutableRefObject<ImageGallery | null>;
    description?: string;
+   index: number;
 }
 
 const VideoComponent: React.FC<VideoComponentProps> = (props) => {
-   const { src, description, galleryRef } = props;
-   const [descEnables, setDescEnabled] = useState<boolean>(true);
+   const { src, description, galleryRef, index } = props;
+   const [playing, setPlaying] = useState<boolean>(true);
+   const playerRef = useRef<YouTubeEvent | null>(null);
 
    const videoId = youtubeParser(src);
 
    if (videoId == false) return null;
+
+   if (index !== galleryRef.current?.getCurrentIndex()) {
+      try {
+         playerRef.current?.target?.pauseVideo();
+      } catch {}
+   }
 
    return (
       <div
@@ -25,32 +33,29 @@ const VideoComponent: React.FC<VideoComponentProps> = (props) => {
          }
       >
          <YouTube
+            onReady={(e) => {
+               playerRef.current = e;
+            }}
             videoId={videoId}
             onPlay={() => {
                galleryRef.current?.pause();
-               setDescEnabled(false);
+               setPlaying(true);
             }}
             onPause={() => {
                galleryRef.current?.play();
-               setDescEnabled(true);
+               setPlaying(false);
             }}
             onEnd={() => galleryRef.current?.play()}
             opts={{
                height: "null",
                width: "null",
-               allowfullscreen: "0",
                playerVars: {
-                  allowfullscreen: "0",
-                  autoplay: 1,
-                  fullScreen: 0,
-               },
-               allow: {
-                  fullScreen: "0",
+                  autoplay: 0,
                },
             }}
             className="iframe_container"
          />
-         {description && descEnables && (
+         {description && !playing && (
             <span className="image-gallery-description video_gallery_description">{description}</span>
          )}
       </div>

@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useMemo, useRef } from "react";
 import { IconButton } from "@mui/material";
 import FullscreenIcon from "@mui/icons-material/Fullscreen";
 import FullscreenExitIcon from "@mui/icons-material/FullscreenExit";
@@ -24,31 +24,36 @@ const ImageViewer: React.FC<ImageViewerProps> = (props) => {
    const { media = [], className } = props;
    const galleryRef = useRef<ImageGallery | null>(null);
 
-   const items: ReactImageGalleryItem[] = media.filterAndMap((image, index) => {
-      if (image.type === "image" || image.type === "video") {
-         return {
-            original: image.src,
-            thumbnail:
-               image.type === "video"
-                  ? `http://img.youtube.com/vi/${youtubeParser(image.src)}/0.jpg
+   const items = useMemo<ReactImageGalleryItem[]>(
+      () =>
+         media
+            .filter((image) => image.type !== "audio")
+            .map((image, index) => {
+               return {
+                  original: image.src,
+                  thumbnail:
+                     image.type === "video"
+                        ? `http://img.youtube.com/vi/${youtubeParser(image.src)}/0.jpg
                `
-                  : image.src,
-            description: image.description,
-            loading: "lazy",
-            originalAlt: `image-${index}`,
-            renderItem:
-               image.type === "video"
-                  ? (_item) => (
-                       <VideoComponent
-                          src={image.src}
-                          galleryRef={galleryRef}
-                          description={image.description}
-                       />
-                    )
-                  : undefined,
-         };
-      }
-   });
+                        : image.src,
+                  description: image.description,
+                  loading: "lazy",
+                  originalAlt: `image-${index}`,
+                  renderItem:
+                     image.type === "video"
+                        ? (_item) => (
+                             <VideoComponent
+                                index={index}
+                                src={image.src}
+                                galleryRef={galleryRef}
+                                description={image.description}
+                             />
+                          )
+                        : undefined,
+               };
+            }),
+      [media],
+   );
 
    if (items.length === 0) return null;
 
