@@ -4,9 +4,11 @@ import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider, createTheme } from "@mui/material";
 import { wrap } from "@hilma/tools";
 import { UserContextProvider } from "./contexts/UserContextProvider.context.tsx";
+import { AlertProvider, CSSPrioritize } from "@hilma/forms";
 import App from "./App.tsx";
 
-import { CSSPrioritize } from "@hilma/forms";
+import "filter-and-map";
+
 import "./styles/reset.scss";
 import "./styles/generic.scss";
 
@@ -31,8 +33,9 @@ const theme = createTheme({
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
    <React.StrictMode>
-      {wrap(React.StrictMode, CSSPrioritize, BrowserRouter, UserContextProvider, [ThemeProvider, { theme: theme }])(
-         <App />,
-      )}
+      {wrap(React.StrictMode, CSSPrioritize, AlertProvider, BrowserRouter, UserContextProvider, [
+         ThemeProvider,
+         { theme: theme },
+      ])(<App />)}
    </React.StrictMode>,
 );
