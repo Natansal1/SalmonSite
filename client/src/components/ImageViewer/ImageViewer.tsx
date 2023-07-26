@@ -1,12 +1,14 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef } from "react";
 import { IconButton } from "@mui/material";
 import FullscreenIcon from "@mui/icons-material/Fullscreen";
 import FullscreenExitIcon from "@mui/icons-material/FullscreenExit";
 import PlayArrowRoundedIcon from "@mui/icons-material/PlayArrowRounded";
 import PauseRoundedIcon from "@mui/icons-material/PauseRounded";
 import ImageGallery, { ReactImageGalleryItem } from "react-image-gallery";
-import { Media } from "../../common/types";
 import clsx from "clsx";
+import { youtubeParser } from "../../common/functions";
+import { Media } from "../../common/types";
+import VideoComponent from "./VideoComponent";
 
 import "react-image-gallery/styles/scss/image-gallery.scss";
 import "../../styles/components/image-viewer.scss";
@@ -21,45 +23,42 @@ interface ImageViewerProps {
 const ImageViewer: React.FC<ImageViewerProps> = (props) => {
    const { media = [], className } = props;
    const galleryRef = useRef<ImageGallery | null>(null);
-   const [isFullScreen, setIsFullScreen] = useState<boolean>(false);
-
-   useEffect(() => {
-      function handleFullScreen() {
-         if (document.fullscreenElement) setIsFullScreen(true);
-         else setIsFullScreen(false);
-      }
-
-      document.addEventListener("fullscreenchange", handleFullScreen);
-      return () => window.removeEventListener("fullscreenchange", handleFullScreen);
-   }, []);
 
    const items: ReactImageGalleryItem[] = media.filterAndMap((image, index) => {
       if (image.type === "image" || image.type === "video") {
          return {
             original: image.src,
-            thumbnail: image.src,
+            thumbnail:
+               image.type === "video"
+                  ? `http://img.youtube.com/vi/${youtubeParser(image.src)}/0.jpg
+               `
+                  : image.src,
             description: image.description,
             loading: "lazy",
             originalAlt: `image-${index}`,
+            renderItem:
+               image.type === "video"
+                  ? (_item) => (
+                       <VideoComponent
+                          src={image.src}
+                          galleryRef={galleryRef}
+                          description={image.description}
+                       />
+                    )
+                  : undefined,
          };
       }
    });
 
    if (items.length === 0) return null;
 
-   function handleFullScreenClick(isFullScreen: boolean) {
-      isFullScreen ? galleryRef.current?.exitFullScreen() : galleryRef.current?.fullScreen();
-      setIsFullScreen(!isFullScreen);
-   }
-
-   function handlePlayPauseClick(isPlaying: boolean) {
-      isPlaying ? galleryRef.current?.pause() : galleryRef.current?.play();
-   }
-
    return (
       <div className="page">
          <ImageGallery
             items={items}
+            onClick={() =>
+               !document.fullscreenElement ? galleryRef.current?.fullScreen() : galleryRef.current?.exitFullScreen()
+            }
             isRTL
             infinite
             thumbnailPosition="bottom"
@@ -72,22 +71,21 @@ const ImageViewer: React.FC<ImageViewerProps> = (props) => {
             showIndex={items.length > 1}
             showNav={items.length > 1}
             slideDuration={300}
-            slideInterval={2000}
+            slideInterval={3500}
             additionalClass={clsx(className, "image_gallery", {
-               image_gallery_full_screen: isFullScreen,
                image_gallery_one: items.length === 1,
             })}
-            renderFullscreenButton={(_e, isFullScreen) => (
+            renderFullscreenButton={(onClick, isFullScreen) => (
                <IconButton
-                  onClick={() => handleFullScreenClick(isFullScreen)}
+                  onClick={onClick}
                   className="control_button fullscreen_button"
                >
                   {isFullScreen ? <FullscreenExitIcon /> : <FullscreenIcon />}
                </IconButton>
             )}
-            renderPlayPauseButton={(_e, isPlaying) => (
+            renderPlayPauseButton={(onClick, isPlaying) => (
                <IconButton
-                  onClick={() => handlePlayPauseClick(isPlaying)}
+                  onClick={onClick}
                   className="control_button play_button"
                >
                   {isPlaying ? <PauseRoundedIcon /> : <PlayArrowRoundedIcon />}

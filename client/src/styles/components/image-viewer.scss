@@ -7,8 +7,12 @@
 
 .image_gallery {
    border: 2px solid $light-blue;
-   width: min(100vw, 500px);
+   width: min(98vw, 500px);
    aspect-ratio: 4/2;
+
+   .image-gallery-content {
+      width: 100%;
+   }
 
    .control_button {
       transition: 300ms;
@@ -44,10 +48,36 @@
       align-items: flex-start;
       justify-content: center;
       text-align: center;
-      font-size: 1rem;
+      font-size: 1.5rem;
    }
 
-   &.image_gallery_full_screen {
+   .image-gallery-index {
+      font-size: 1.5rem;
+   }
+
+   .image-gallery-icon {
+      padding: 0;
+   }
+
+   .video_component_container {
+      height: 100%;
+      width: 100%;
+   }
+   .iframe_container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+
+      iframe {
+         position: absolute;
+         top: 0;
+         left: 0;
+         width: 100%;
+         height: 100%;
+      }
+   }
+
+   &:fullscreen {
       height: 100vh;
       width: 100vh;
       border: none;
@@ -61,7 +91,7 @@
          color: white;
 
          .MuiSvgIcon-root {
-            font-size: 4rem;
+            font-size: 3rem;
          }
       }
 
@@ -80,6 +110,9 @@
       }
 
       .image-gallery-description {
+         font-size: 3rem;
+      }
+      .image-gallery-index {
          font-size: 3rem;
       }
 
