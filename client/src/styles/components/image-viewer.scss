@@ -4,6 +4,12 @@
    width: min(98vw, 500px);
    aspect-ratio: 4/2;
 
+   &:hover {
+      .image-gallery-index {
+         opacity: 1;
+      }
+   }
+
    .image-gallery-content {
       width: 100%;
    }
@@ -18,10 +24,10 @@
       &.play_button {
          float: left;
       }
+   }
 
-      .MuiSvgIcon-root {
-         font-size: 2rem;
-      }
+   .MuiSvgIcon-root {
+      font-size: 2rem;
    }
 
    .image-gallery-image {
@@ -46,11 +52,18 @@
    }
 
    .image-gallery-index {
+      opacity: 0;
       font-size: 1.5rem;
+      transition: 0.3s;
    }
 
    .image-gallery-icon {
-      padding: 0;
+      padding: 5px;
+      top: auto;
+      bottom: 10%;
+      &:hover {
+         color: $light-blue;
+      }
    }
 
    .video_component_container {
@@ -83,10 +96,10 @@
             transform: scale(1.2);
          }
          color: white;
+      }
 
-         .MuiSvgIcon-root {
-            font-size: 3rem;
-         }
+      .MuiSvgIcon-root {
+         font-size: 3rem;
       }
 
       .image-gallery-content.fullscreen {
@@ -108,12 +121,7 @@
       }
       .image-gallery-index {
          font-size: 3rem;
-      }
-
-      &.image_gallery_one {
-         .image-gallery-image {
-            height: 100%;
-         }
+         opacity: 1;
       }
    }
 }

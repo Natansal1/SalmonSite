@@ -13,6 +13,9 @@
    "dependencies": {
       "@emotion/react": "^11.11.1",
       "@emotion/styled": "^11.11.0",
+      "@fullcalendar/core": "^6.1.8",
+      "@fullcalendar/daygrid": "^6.1.8",
+      "@fullcalendar/react": "^6.1.8",
       "@hilma/forms": "^2.4.4",
       "@hilma/tools": "^1.1.0",
       "@mui/material": "^5.14.1",
@@ -21,6 +24,7 @@
       "axios": "^1.4.0",
       "clsx": "^2.0.0",
       "filter-and-map": "^1.0.7",
+      "jewish-date": "^1.0.13",
       "map": "^1.0.1",
       "mui": "^0.0.1",
       "react": "^18.2.0",

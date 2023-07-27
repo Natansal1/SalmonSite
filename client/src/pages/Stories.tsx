@@ -2,7 +2,7 @@ import React from "react";
 import Story from "../components/Story";
 import { StoryType } from "../common/types/ServerTypes/Story.type";
 import { MediaType } from "../common/types";
-import "../styles/components/story.style.scss";
+import "../styles/pages/story.style.scss";
 
 const DbInfo: StoryType[] = [
    {

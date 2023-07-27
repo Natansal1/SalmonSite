@@ -39,6 +39,7 @@ const HeaderLinks: React.FC = () => {
 
    function getActivePage(): Page | null {
       const pathname = location.pathname;
+      if (location.pathname === "/") return "home";
       const page = pathname.split("/").filter(Boolean)[0];
       return PAGES_ORDER.find((val) => val === page) ?? null;
    }
