@@ -51,6 +51,9 @@ const HebrewCalender: React.FC<HebrewCalenderProps> = () => {
          style={{ overflow: "scroll" }}
       >
          <FullCalendar
+            headerToolbar={{
+               center: "dayGridMonth,dayGridWeek,dayGridDay",
+            }}
             direction="rtl"
             dayHeaderContent={(day) => DAYS[day.dow]}
             dayCellContent={getContentFromDate}
