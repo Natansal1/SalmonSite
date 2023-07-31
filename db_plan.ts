@@ -45,6 +45,15 @@ type Origin = {
    pages: Page[];
 };
 
+type CalendarEvent = {
+   start: Date;
+   end?: Date; //defaults to one day
+   title: string;
+   allDay?: boolean; //defaults to false
+   categories?: string[];
+   url?: string;
+};
+
 /* HELPERS - (Not in DB) */
 
 type Page = {

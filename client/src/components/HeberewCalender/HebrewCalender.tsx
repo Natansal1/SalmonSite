@@ -1,10 +1,13 @@
 import React from "react";
 import { toHebrewJewishDate, toJewishDate } from "jewish-date";
 import FullCalendar from "@fullcalendar/react";
-import { DayCellContentArg, DayHeaderContentArg } from "@fullcalendar/core";
+import { DayCellContentArg } from "@fullcalendar/core";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import { VerboseFormattingArg } from "@fullcalendar/core/internal.js";
 import HebrewLocal from "@fullcalendar/core/locales/he";
+
+import "../../styles/components/hebrew-calendar.scss";
+import { parseUrl } from "../../common/functions";
 
 const DAYS = ["ראשון", "שני", "שלישי", "רביעי", "חמישי", "שישי", "שבת"];
 //prettier-ignore
@@ -17,7 +20,7 @@ const HebrewCalender: React.FC<HebrewCalenderProps> = () => {
       const gDay = date.dayNumberText;
       const { day, monthName } = toHebrewJewishDate(toJewishDate(date.date));
       return (
-         <div>
+         <div className="day_dates_container">
             <span>
                {day} {monthName}
             </span>
@@ -44,18 +47,54 @@ const HebrewCalender: React.FC<HebrewCalenderProps> = () => {
 
    return (
       <div
-         className="page"
+         className="page hebrew_calendar"
          style={{ overflow: "scroll" }}
       >
          <FullCalendar
             direction="rtl"
             dayHeaderContent={(day) => DAYS[day.dow]}
             dayCellContent={getContentFromDate}
-            timeZone="Israel/Jerusalem"
             titleFormat={getMonthFromDate}
             plugins={[dayGridPlugin]}
             initialView="dayGridMonth"
             locale={HebrewLocal}
+            eventClick={(e) => {
+               // e.jsEvent.preventDefault();
+               // e.event.url && window.open(e.event.url);
+               // console.log(e.event);
+            }}
+            events={[
+               {
+                  title: "hello",
+                  // start: new Date(),
+                  start: Date.now(),
+                  end: Date.now() + 1000 * 60 * 60 * 48,
+               },
+            ]}
+            eventSources={[
+               {
+                  url: parseUrl({
+                     base: "https://www.hebcal.com",
+                     pathname: "hebcal",
+                     query: {
+                        cfg: "fc", // Type of response @fullcalendar
+                        v: "1", // Version
+                        lg: "he", // Language
+                        i: "on", // Israel holidays
+                        maj: "on", // Major holidays
+                        min: "on", // Minor holidays (Tu BiShvat, Lag B’Omer, …)
+                        nx: "on", // Rosh Chodesh
+                        mf: "on", // Minor fasts (Ta’anit Esther, Tzom Gedaliah, …)
+                        ss: "on", // Special Shabbatot (Shabbat Shekalim, Zachor, …)
+                        mod: "on", // Modern holidays (Yom HaShoah, Yom HaAtzma’ut, …)
+                        s: "on", // Parashat ha-Shavuah on Saturday
+                        geo: "geoname", // Location type
+                        geonameid: "293918", //Location ID (Petah Tiqwa)
+                     },
+                  }),
+                  eventDataTransform: (e) => (delete e.url, e),
+               },
+            ]}
          />
       </div>
    );

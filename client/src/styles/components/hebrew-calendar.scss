@@ -1,0 +1,12 @@
+.hebrew_calendar {
+   .fc-daygrid-day-number {
+      width: 100%;
+   }
+   .day_dates_container {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2%;
+   }
+}
