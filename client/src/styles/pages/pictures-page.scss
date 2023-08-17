@@ -1,3 +1,13 @@
+@import "../variables.scss";
+
 .pictures_page {
-    
+   .picture_page_content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 5vh 5vw;
+   }
+   .family_pictures_categories {
+   }
 }

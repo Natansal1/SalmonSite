@@ -30,6 +30,7 @@ const HebrewCalender: React.FC<HebrewCalenderProps> = () => {
    }
 
    function getMonthFromDate(date: VerboseFormattingArg) {
+      console.log(date);
       const startHebMonth = toHebrewJewishDate(toJewishDate(date.start.marker)).monthName;
       const endHebMonth = date.end && toHebrewJewishDate(toJewishDate(date.end.marker)).monthName;
       const doneHebMonth = endHebMonth
@@ -61,7 +62,7 @@ const HebrewCalender: React.FC<HebrewCalenderProps> = () => {
             plugins={[dayGridPlugin]}
             initialView="dayGridMonth"
             locale={HebrewLocal}
-            eventClick={(e) => {
+            eventClick={(_e) => {
                // e.jsEvent.preventDefault();
                // e.event.url && window.open(e.event.url);
                // console.log(e.event);

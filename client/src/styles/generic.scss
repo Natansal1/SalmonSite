@@ -3,7 +3,34 @@
 .page {
    margin-top: $header-height;
    height: calc(100vh - $header-height);
+   background-color: $bluish-white;
    width: 100%;
+
+   &.page_scroll {
+      overflow: auto;
+   }
+}
+
+h1.title {
+   $bottom-extra: 10vh;
+   $padding: 1vh;
+   width: 100%;
+   text-align: center;
+   color: $bluish-white;
+   font-size: 4.2rem;
+   padding: 3 * $padding 0 $padding 0;
+   padding-bottom: $padding + $bottom-extra;
+   text-shadow: text-outline($dark-blue, 1.5px);
+   background-image: url(https://media.istockphoto.com/id/1276500635/vector/blue-paint-splash-strip.jpg?s=612x612&w=0&k=20&c=tmOWml7xbbA_RP7Z34Cfx91N20_JmcfppvQ04tdWVR8=);
+   background-position: center 56%;
+   background-size: 1000px;
+   background-repeat: no-repeat;
+   background-blend-mode: darken;
+   background-color: $bluish-white;
+   margin-bottom: -$bottom-extra;
+   position: sticky;
+   top: 0;
+   z-index: 0;
 }
 
 .menu {

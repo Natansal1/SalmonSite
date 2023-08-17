@@ -29,6 +29,7 @@ type Occasion = {
 };
 
 type Picture = {
+   _id: UUID;
    mainImg: string;
    title: string;
    description?: string;

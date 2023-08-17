@@ -1,7 +1,6 @@
 import clsx from "clsx";
 import React from "react";
 import ImageCard from "./ImageCard";
-import { ImageList } from "@mui/material";
 
 interface CardsLineupProps {
    images: {
@@ -11,7 +10,6 @@ interface CardsLineupProps {
       text: string;
       subtext?: string;
    }[];
-   buttonText?: string;
    onClick: (id: string | number) => void;
    className?: string;
 }

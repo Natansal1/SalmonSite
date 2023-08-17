@@ -3,6 +3,7 @@
 .image_gallery {
    width: min(98vw, 500px);
    aspect-ratio: 4/2;
+   max-height: 100vh;
 
    &:hover {
       .image-gallery-index {

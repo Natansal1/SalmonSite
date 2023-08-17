@@ -5,12 +5,12 @@ import { ThemeProvider, createTheme } from "@mui/material";
 import { wrap } from "@hilma/tools";
 import { UserContextProvider } from "./contexts/UserContextProvider.context.tsx";
 import { AlertProvider, CSSPrioritize } from "@hilma/forms";
-import App from "./App.tsx";
-
 import "filter-and-map";
 
 import "./styles/reset.scss";
 import "./styles/generic.scss";
+
+import App from "./App.tsx";
 
 const theme = createTheme({
    palette: {

@@ -5,14 +5,10 @@
    display: flex;
    align-items: center;
    justify-content: space-evenly;
-   max-height: 100%;
    height: fit-content;
-   flex-wrap: wrap;
+   flex-wrap: wrap-reverse;
    gap: 10px;
    padding: 10px;
-   background-color: $faded-blue;
-   overflow-y: scroll;
-   overflow-x: hidden;
 }
 
 .image_card {
@@ -23,6 +19,10 @@
    flex-direction: column;
    align-items: center;
    justify-content: space-between;
+   min-width: max(20%, 100px);
+   max-width: max(50%, 200px);
+   max-height: 50%;
+   z-index: 1;
 
    .card_action {
       height: 100%;

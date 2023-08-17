@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Card, CardActionArea, CardContent, CardMedia, Typography } from "@mui/material";
+import { Card, CardActionArea, CardContent, Typography } from "@mui/material";
 import clsx from "clsx";
 
 import "../styles/components/image-card.scss";

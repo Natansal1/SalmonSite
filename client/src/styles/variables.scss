@@ -2,6 +2,7 @@
 
 /* FONTS */
 $main-font-family: Assistant;
+$second-font-family: Roboto, Helvetica, Arial, sans-serif;
 
 /* COLORS */
 $bg: #ffffff;
@@ -11,6 +12,9 @@ $gray: #707070;
 $light-blue: #6eb9cf;
 $dark-blue: #415d65;
 $faded-blue: #d9eff4;
+
+//white shades
+$bluish-white: #dcf0ff;
 
 //green shades
 $success-green: #6dc79c;
@@ -28,4 +32,11 @@ $header-height: max(8vh, 60px);
    display: flex;
    align-items: center;
    justify-content: center;
+}
+
+/* FUNCTIONS */
+@function text-outline($shadow-color, $width) {
+   $neg-width: calc(-1 * $width);
+   @return $neg-width $neg-width 0 $shadow-color, $width $neg-width 0 $shadow-color, $neg-width $width 0 $shadow-color,
+      $width $width 0 $shadow-color;
 }
