@@ -31,6 +31,13 @@ h1.title {
    position: sticky;
    top: 0;
    z-index: 0;
+
+   &.above {
+      z-index: 10;
+   }
+   &.scroll {
+      position: static;
+   }
 }
 
 .menu {

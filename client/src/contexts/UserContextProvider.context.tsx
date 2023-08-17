@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { createContextHook } from "@hilma/tools";
 import { DisplayMode } from "../common/types";
 import { DISPLAY_MODE_KEY, MAX_MOBILE_WIDTH } from "../common/constants";
@@ -8,7 +8,7 @@ export type UserContextValue = {
    loggedIn: boolean;
 
    toggleDisplayMode: () => void;
-   isMobile: () => boolean;
+   isMobile: boolean;
 };
 
 const UserContext = React.createContext<UserContextValue | null>(null);
@@ -22,6 +22,15 @@ interface UserContextProviderProps {
 export const UserContextProvider: React.FC<UserContextProviderProps> = (props) => {
    const [displayMode, setDisplayMode] = useState<DisplayMode>(getDisplayModeFromLocalStorage);
    const [loggedIn, setLoggedIn] = useState<boolean>(false);
+   const [isMobile, setIsMobile] = useState<boolean>(checkIsMobile);
+
+   useEffect(() => {
+      function handleResize() {
+         setIsMobile(checkIsMobile);
+      }
+      window.addEventListener("resize", handleResize);
+      return () => window.removeEventListener("resize", handleResize);
+   }, []);
 
    function getDisplayModeFromLocalStorage() {
       const displayMode = localStorage.getItem(DISPLAY_MODE_KEY);
@@ -33,7 +42,7 @@ export const UserContextProvider: React.FC<UserContextProviderProps> = (props) =
       setDisplayMode((prev) => (prev === "light" ? "dark" : "light"));
    }
 
-   function isMobile() {
+   function checkIsMobile() {
       return window.innerWidth <= MAX_MOBILE_WIDTH;
    }
 

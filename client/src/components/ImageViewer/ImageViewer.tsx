@@ -94,7 +94,7 @@ const ImageViewer: React.FC<ImageViewerProps> = (props) => {
          showIndex={isFullscreen || (showIndex && items.length > 1)}
          showNav={isFullscreen || (showNav && items.length > 1)}
          slideDuration={300}
-         slideInterval={3500}
+         slideInterval={4000 - Math.random() * 1000}
          additionalClass={clsx(className, "image_gallery", {
             image_gallery_one: items.length === 1,
          })}

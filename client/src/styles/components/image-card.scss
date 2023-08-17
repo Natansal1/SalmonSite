@@ -52,8 +52,9 @@
    .card_title,
    .card_subtitle {
       text-align: center;
-      font-size: 1.2rem;
-      color: $gray-text;
+      font-size: 1.5rem;
+      color: $dark-blue;
+      font-family: $main-font-family;
    }
    .card_title {
       font-weight: 600;
