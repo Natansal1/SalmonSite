@@ -7,6 +7,8 @@ import "../../styles/pages/pictures-page.scss";
 const Pictures: React.FC = () => {
    const navigate = useNavigate();
 
+   
+
    return (
       <div className="pictures_page page page_scroll">
          <h1 className="title">תמונות משפחתיות</h1>

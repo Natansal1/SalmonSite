@@ -2,6 +2,7 @@ import { Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
 import { MongooseModule } from "@nestjs/mongoose";
 import { FamilyMemberModule } from "./family-member/family-member.module";
+import { FamilyPictureModule } from './family-picture/family-picture.module';
 
 @Module({
    imports: [
@@ -13,6 +14,7 @@ import { FamilyMemberModule } from "./family-member/family-member.module";
          appName: "SalmonSite",
       }),
       FamilyMemberModule,
+      FamilyPictureModule,
    ],
    controllers: [],
    providers: [],
