@@ -1,72 +1,43 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import CardsLineup from "../../components/CardsLineup";
+import { useQuery } from "@tanstack/react-query";
 
 import "../../styles/pages/pictures-page.scss";
+import axios from "axios";
+import { FamilyPictureCategory } from "../../common/types";
+import Loading from "../Loading";
+import { queryKeys } from "../../common/enums";
+import PageWrapper from "../../components/PageWrapper/PageWrapper";
 
 const Pictures: React.FC = () => {
    const navigate = useNavigate();
+   const { data: images, status } = useQuery({
+      queryFn: async () => (await axios.get<FamilyPictureCategory[]>("/api/family-picture/categories")).data,
+      queryKey: [queryKeys.PICTURES],
+      select: (data) =>
+         data.map((val) => ({
+            id: val._id,
+            src: val.mainImage,
+            text: val.title,
+            subtext: val.description,
+            alt: val.title,
+         })),
+   });
 
-   
+   if (status !== "success") return <Loading />;
 
    return (
-      <div className="pictures_page page page_scroll">
+      <PageWrapper className="pictures_page page page_scroll">
          <h1 className="title">תמונות משפחתיות</h1>
          <div className="picture_page_content">
             <CardsLineup
                onClick={(id) => navigate(id.toString())}
                className="family_pictures_categories"
-               images={[
-                  {
-                     id: 1,
-                     src: "https://assets.editorial.aetnd.com/uploads/2009/10/dinosaurs-gettyimages-1330203143.jpg?width=768",
-                     alt: "alt",
-                     text: "תמונה יאיי",
-                     subtext: "וואו אין על זה",
-                  },
-                  {
-                     id: 2,
-                     src: "https://media.cnn.com/api/v1/images/stellar/prod/230314153048-02-dinosaur-record-long-neck.jpg?c=4x3",
-                     alt: "alt",
-                     text: "תמונה יאיי",
-                  },
-                  {
-                     id: 3,
-                     src: "https://images.fineartamerica.com/images-medium-large-5/a-pair-of-carnotaurus-dinosaurs-hunting-kurt-miller.jpg",
-                     alt: "alt",
-                     text: "תמונה יאיי",
-                     subtext: "וואו אין על זה",
-                  },
-                  {
-                     id: 4,
-                     src: "https://www.nawpic.com/media/2020/dinosaur-nawpic-26-260x534.jpg",
-                     alt: "alt",
-                     text: "תמונה יאיי",
-                     subtext: "וואו אין על זה",
-                  },
-                  {
-                     id: 5,
-                     src: "https://cst.brightspotcdn.com/dims4/default/e1215f1/2147483647/strip/false/crop/1280x713+0+0/resize/1280x713!/quality/90/?url=https%3A%2F%2Fcdn.vox-cdn.com%2Fthumbor%2FijINmgCi2JI6Hjzz5DUw31Dhho0%3D%2F0x0%3A1280x713%2F1280x713%2Ffilters%3Afocal%281129x484%3A1130x485%29%2Fcdn.vox-cdn.com%2Fuploads%2Fchorus_asset%2Ffile%2F24678391%2FSpinosaurus_2021.png",
-                     alt: "alt",
-                     text: "תמונה יאיי",
-                  },
-                  {
-                     id: 1,
-                     src: "https://assets.editorial.aetnd.com/uploads/2009/10/dinosaurs-gettyimages-1330203143.jpg?width=768",
-                     alt: "alt",
-                     text: "תמונה יאיי",
-                     subtext: "וואו אין על זה",
-                  },
-                  {
-                     id: 2,
-                     src: "https://media.cnn.com/api/v1/images/stellar/prod/230314153048-02-dinosaur-record-long-neck.jpg?c=4x3",
-                     alt: "alt",
-                     text: "תמונה יאיי",
-                  },
-               ]}
+               images={images}
             />
          </div>
-      </div>
+      </PageWrapper>
    );
 };
 

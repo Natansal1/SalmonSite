@@ -8,6 +8,7 @@ import { HEADER_MOBILE_START_WIDTH } from "./Header";
 import HeaderLink from "./HeaderLink";
 import HeaderMenu from "./HeaderMenu";
 import UserAvatar from "../SettingsMenu";
+import HeaderSearch from "./HeaderSearch";
 
 const HeaderLinks: React.FC = () => {
    const location = useLocation();
@@ -50,7 +51,7 @@ const HeaderLinks: React.FC = () => {
    }
 
    function setSlider(page: Page | null) {
-      if (!page) return;
+      if (!page) return setDivSlider(null);
       const selected = document.querySelector(`[data-page='${page}']`);
       if (!selected) return setDivSlider(null);
       const { width, left } = selected.getBoundingClientRect();
@@ -96,6 +97,7 @@ const HeaderLinks: React.FC = () => {
                <MenuIcon />
             </IconButton>
          )}
+         <HeaderSearch />
          <UserAvatar isMenu={isMenu} />
       </>
    );

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Divider, IconButton, Menu, MenuItem } from "@mui/material";
 import { useUserContext } from "../contexts/UserContextProvider.context";
 import SettingsIcon from "@mui/icons-material/Settings";
+import clsx from "clsx";
 
 interface UserAvatarProps {
    isMenu: boolean;
@@ -36,6 +37,7 @@ const UserAvatar: React.FC<UserAvatarProps> = (props) => {
             <SettingsIcon
                color="secondary"
                fontSize="large"
+               className={clsx("settings_icon", { settings_icon_active: menuOpen })}
             />
          </IconButton>
          <Menu

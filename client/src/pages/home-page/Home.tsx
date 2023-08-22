@@ -3,6 +3,7 @@ import { ImageList } from "@mui/material";
 import HomeComponents from "./HomeComponents";
 
 import "../../styles/pages/home-page.scss";
+import PageWrapper from "../../components/PageWrapper/PageWrapper";
 
 const PC_MIN_WIDTH = 1300;
 const TABLET_MIN_WIDTH = 800;
@@ -28,7 +29,7 @@ const Home: React.FC = () => {
    }
 
    return (
-      <div className="page home_page">
+      <PageWrapper className="page home_page">
          <ImageList
             className="home_grid"
             variant={size === "pc" ? "masonry" : "quilted"}
@@ -38,7 +39,7 @@ const Home: React.FC = () => {
          >
             <HomeComponents size={size} />
          </ImageList>
-      </div>
+      </PageWrapper>
    );
 };
 

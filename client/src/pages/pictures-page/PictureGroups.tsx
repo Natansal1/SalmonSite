@@ -1,70 +1,45 @@
 import React from "react";
-import { MediaType } from "../../common/types";
 import PictureGroup from "../../components/PictureGroup/PictureGroup";
-
-const media = [
-   {
-      src: "https://assets.editorial.aetnd.com/uploads/2009/10/dinosaurs-gettyimages-1330203143.jpg?width=768",
-      description: "תמונה יאיי",
-      type: MediaType.IMAGE,
-   },
-   {
-      src: "https://media.cnn.com/api/v1/images/stellar/prod/230314153048-02-dinosaur-record-long-neck.jpg?c=4x3",
-      description: "תמונה יאיי",
-      type: MediaType.IMAGE,
-   },
-   {
-      src: "https://images.fineartamerica.com/images-medium-large-5/a-pair-of-carnotaurus-dinosaurs-hunting-kurt-miller.jpg",
-      description: "תמונה יאיי",
-      type: MediaType.IMAGE,
-   },
-   {
-      src: "https://www.nawpic.com/media/2020/dinosaur-nawpic-26-260x534.jpg",
-      description: "תמונה יאיי",
-      type: MediaType.IMAGE,
-   },
-   {
-      src: "https://cst.brightspotcdn.com/dims4/default/e1215f1/2147483647/strip/false/crop/1280x713+0+0/resize/1280x713!/quality/90/?url=https%3A%2F%2Fcdn.vox-cdn.com%2Fthumbor%2FijINmgCi2JI6Hjzz5DUw31Dhho0%3D%2F0x0%3A1280x713%2F1280x713%2Ffilters%3Afocal%281129x484%3A1130x485%29%2Fcdn.vox-cdn.com%2Fuploads%2Fchorus_asset%2Ffile%2F24678391%2FSpinosaurus_2021.png",
-      description: "תמונה יאיי",
-      type: MediaType.IMAGE,
-   },
-   {
-      src: "https://assets.editorial.aetnd.com/uploads/2009/10/dinosaurs-gettyimages-1330203143.jpg?width=768",
-      description: "תמונה יאיי",
-      type: MediaType.IMAGE,
-   },
-   {
-      src: "https://media.cnn.com/api/v1/images/stellar/prod/230314153048-02-dinosaur-record-long-neck.jpg?c=4x3",
-      description: "תמונה יאיי",
-      type: MediaType.IMAGE,
-   },
-];
+import { useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { queryKeys } from "../../common/enums";
+import axios from "axios";
+import { FamilyPicture } from "../../common/types";
+import Loading from "../Loading";
+import ReturnButton from "../../components/ReturnButton";
+import PageWrapper from "../../components/PageWrapper/PageWrapper";
 
 const PictureGroups: React.FC = () => {
+   const { groupId } = useParams<"groupId">();
+   const { data, status } = useQuery({
+      queryKey: [queryKeys.PICTURE_GROUPS, groupId],
+      queryFn: async () => (await axios.get<FamilyPicture>(`/api/family-picture/${groupId}`)).data,
+      select: (data) => ({
+         groups: data.mediaGroups.map((val) => ({
+            ...val,
+            presentedDate: val.presentedDate ? new Date(val.presentedDate) : undefined,
+         })),
+         mainImage: data.mainImage,
+      }),
+   });
+
+   if (status !== "success") return <Loading />;
+
+   const { groups, mainImage } = data;
+
    return (
-      <div className="page page_scroll">
+      <PageWrapper className="page page_scroll">
          <h1 className="title scroll">כותרת יפה</h1>
+         <ReturnButton />
          <div className="picture_groups_container">
-            <PictureGroup
-               media={media}
-               title="אני הכותרת הכי יפה"
-            />
-            <PictureGroup
-               media={media}
-               title="אני הכותרת הכי יפה"
-               presentedDate={new Date()}
-            />
-            <PictureGroup
-               media={media}
-               title="אני הכותרת הכי יפה"
-            />
-            <PictureGroup
-               media={media}
-               title="אני הכותרת הכי יפה"
-               presentedDate={new Date()}
-            />
+            {groups.map((group, index) => (
+               <PictureGroup
+                  {...group}
+                  key={group.title + index}
+               />
+            ))}
          </div>
-      </div>
+      </PageWrapper>
    );
 };
 

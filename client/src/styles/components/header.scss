@@ -1,6 +1,10 @@
 @import "../variables.scss";
 
 .header {
+   $header-search-right: calc($header-height + 1vw);
+   $header-search-margin-left: 0px;
+   $header-icon-margin-left: calc($header-search-margin-left + $header-search-right);
+
    display: flex;
    flex-direction: row;
    align-items: center;
@@ -8,12 +12,26 @@
    height: $header-height;
    color: $gray;
 
+   .header_search {
+      position: fixed;
+      right: $header-search-right;
+   }
+
    .login_header_button {
       margin-left: 1vw;
       height: 70%;
       width: auto;
       aspect-ratio: 1/1;
       background-color: $light-blue;
+
+      .settings_icon {
+         transform: rotate(0deg);
+         transition: 500ms;
+
+         &.settings_icon_active {
+            transform: rotate(130deg);
+         }
+      }
    }
 
    .header_title {
@@ -24,11 +42,12 @@
    }
 
    .header_icon {
-      width: $header-height;
-      border-radius: 100vh;
       height: 100%;
+      aspect-ratio: 1/1;
+      border-radius: 100vh;
       object-fit: cover;
       object-position: right;
+      margin-left: $header-icon-margin-left;
    }
 
    .header_links {
@@ -53,6 +72,11 @@
          align-items: center;
          justify-content: space-evenly;
          gap: 0.5vw;
+         transition: 150ms;
+
+         &:not(.header_link_active):hover {
+            transform: scale(1.05);
+         }
       }
 
       .bottom_header_line {
@@ -101,6 +125,7 @@
       background-color: $light-blue;
    }
 }
+
 .draw_icon {
    .MuiSvgIcon-root {
       font-size: max(5vh, 3rem);

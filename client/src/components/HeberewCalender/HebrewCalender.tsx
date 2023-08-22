@@ -8,6 +8,7 @@ import HebrewLocal from "@fullcalendar/core/locales/he";
 
 import "../../styles/components/hebrew-calendar.scss";
 import { parseUrl } from "../../common/functions";
+import PageWrapper from "../PageWrapper/PageWrapper";
 
 const DAYS = ["ראשון", "שני", "שלישי", "רביעי", "חמישי", "שישי", "שבת"];
 //prettier-ignore
@@ -47,7 +48,7 @@ const HebrewCalender: React.FC<HebrewCalenderProps> = () => {
    }
 
    return (
-      <div
+      <PageWrapper
          className="page hebrew_calendar"
          style={{ overflow: "scroll" }}
       >
@@ -100,7 +101,7 @@ const HebrewCalender: React.FC<HebrewCalenderProps> = () => {
                },
             ]}
          />
-      </div>
+      </PageWrapper>
    );
 };
 

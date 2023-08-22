@@ -3,6 +3,7 @@ import Story from "../components/Story";
 import { StoryType } from "../common/types/ServerTypes/Story.type";
 import { MediaType } from "../common/types";
 import "../styles/pages/story.style.scss";
+import PageWrapper from "../components/PageWrapper/PageWrapper";
 
 const DbInfo: StoryType[] = [
    {
@@ -78,14 +79,14 @@ const DbInfo: StoryType[] = [
 
 const Stories: React.FC = () => {
    return (
-      <div className="page stories_page">
+      <PageWrapper className="page stories_page">
          {DbInfo.map((e, index) => (
             <Story
                key={index}
                story={e}
             />
          ))}
-      </div>
+      </PageWrapper>
    );
 };
 

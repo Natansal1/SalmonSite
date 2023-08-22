@@ -18,7 +18,7 @@ export class CreateFamilyPictureDto {
 
    @IsArray()
    @Type(() => MediaGroupDto)
-   mediaGroups: Media[];
+   mediaGroups: MediaGroupDto[];
 }
 
 export class MediaGroupDto {

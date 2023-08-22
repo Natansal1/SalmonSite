@@ -3,6 +3,7 @@ import { ConfigModule } from "@nestjs/config";
 import { MongooseModule } from "@nestjs/mongoose";
 import { FamilyMemberModule } from "./family-member/family-member.module";
 import { FamilyPictureModule } from './family-picture/family-picture.module';
+import { SearchModule } from './search/search.module';
 
 @Module({
    imports: [
@@ -15,6 +16,7 @@ import { FamilyPictureModule } from './family-picture/family-picture.module';
       }),
       FamilyMemberModule,
       FamilyPictureModule,
+      SearchModule,
    ],
    controllers: [],
    providers: [],

@@ -3,7 +3,7 @@ import React from "react";
 import HeaderLinks from "./HeaderLinks";
 import "../../styles/components/header.scss";
 
-export const HEADER_MOBILE_START_WIDTH = 950;
+export const HEADER_MOBILE_START_WIDTH = 1040;
 
 interface HeaderProps {}
 

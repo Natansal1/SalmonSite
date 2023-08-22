@@ -1,0 +1,47 @@
+@import "../variables.scss";
+
+.search_bar {
+   display: flex;
+   align-items: center;
+   justify-content: space-evenly;
+   background-color: $dark-blue;
+   width: min-content;
+   border-radius: 50px;
+   box-shadow: $shadow-elevation-low;
+   transition: 150ms;
+   position: static;
+
+   &.search_bar_open {
+      box-shadow: $shadow-elevation-medium;
+   }
+
+   .search_icon_container {
+      padding: 9px;
+   }
+
+   .input_container {
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+   }
+
+   .search_input {
+      width: max(45vw, 150px);
+
+      .search_input_text {
+         font-size: 1.4rem;
+         color: white;
+         font-family: $main-font-family;
+
+         &::placeholder {
+            color: $light-blue;
+            opacity: 1;
+            font-weight: 600;
+         }
+      }
+   }
+   .search_icon {
+      font-size: 2rem;
+   }
+}
