@@ -33,7 +33,7 @@ export class SearchService {
          $unwind: "$mediaGroups",
       };
 
-      const projectStage = {
+      const projectStage: PipelineStage.Project = {
          $project: {
             _id: true,
             mainImage: true,
@@ -45,6 +45,9 @@ export class SearchService {
             "mediaGroups.presentedDate": true,
             "mediaGroups.firstName": "$mediaGroups.media.peopleInfo.firstName",
             "mediaGroups.lastName": "$mediaGroups.media.peopleInfo.lastName",
+            "mediaGroups.fullName": {
+               $concat: ["$mediaGroups.media.peopleInfo.firstName", " ", "$mediaGroups.media.peopleInfo.lastName"],
+            },
          },
       };
 

@@ -6,5 +6,5 @@ export type FamilyMember = {
    lastName: string;
    DOB: Date;
    DOD?: Date;
-   media?: Media;
+   media?: Omit<Media, "people">;
 };

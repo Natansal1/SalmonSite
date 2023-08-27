@@ -9,6 +9,7 @@ import HebrewCalender from "./components/HeberewCalender/HebrewCalender";
 import PictureGroups from "./pages/pictures-page/PictureGroups";
 import { usePageLocationContext } from "./contexts/PageLocationContextProvider";
 import SearchResults from "./pages/SearchResults";
+import FamilyMemberDetails from "./components/FamilyMemberDetails";
 
 const App: React.FC = () => {
    const { displayLocation } = usePageLocationContext();
@@ -25,6 +26,7 @@ const App: React.FC = () => {
             <Route path="search-results" element={<SearchResults/>} />
             <Route path="*" element={<NotFoundPage />}/>
          </Routes>
+         <FamilyMemberDetails />
       </>
    );
 };
