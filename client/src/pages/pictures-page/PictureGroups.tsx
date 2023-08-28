@@ -8,6 +8,7 @@ import { FamilyPicture } from "../../common/types";
 import Loading from "../Loading";
 import ReturnButton from "../../components/ReturnButton";
 import PageWrapper from "../../components/PageWrapper/PageWrapper";
+import Title from "../../components/Title";
 
 const PictureGroups: React.FC = () => {
    const { groupId } = useParams<"groupId">();
@@ -15,6 +16,7 @@ const PictureGroups: React.FC = () => {
       queryKey: [queryKeys.PICTURE_GROUPS, groupId],
       queryFn: async () => (await axios.get<FamilyPicture>(`/api/family-picture/${groupId}`)).data,
       select: (data) => ({
+         ...data,
          groups: data.mediaGroups.map((val) => ({
             ...val,
             presentedDate: val.presentedDate ? new Date(val.presentedDate) : undefined,
@@ -25,11 +27,11 @@ const PictureGroups: React.FC = () => {
 
    if (status !== "success") return <Loading />;
 
-   const { groups, mainImage } = data;
+   const { groups, mainImage, title } = data;
 
    return (
       <PageWrapper className="page page_scroll">
-         <h1 className="title scroll">כותרת יפה</h1>
+         <Title>{title}</Title>
          <ReturnButton />
          <div className="picture_groups_container">
             {groups.map((group, index) => (

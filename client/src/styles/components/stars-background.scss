@@ -1,0 +1,94 @@
+@import "../variables.scss";
+
+$time-fast: 20s;
+$time-med: 30s;
+$time-slow: 40s;
+
+@mixin animate-stars($size) {
+   @if $size == small {
+      @include star-animation($time-slow);
+   }
+   @if $size == medium {
+      @include star-animation($time-med);
+   }
+   @if $size == large {
+      @include star-animation($time-fast);
+   }
+}
+
+@mixin delay-seconds($size) {
+   @if $size == small {
+      animation-delay: calc($time-slow * -0.5);
+   }
+   @if $size == medium {
+      animation-delay: calc($time-med * -0.5);
+   }
+   @if $size == large {
+      animation-delay: calc($time-fast * -0.5);
+   }
+}
+
+@mixin star-animation($delay) {
+   animation: move-up $delay infinite linear;
+}
+
+.title_background {
+   position: relative;
+   background-color: $deep-blue;
+   overflow: hidden;
+   border-radius: 10px;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: space-evenly;
+   color: white;
+   .star_container {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+
+      &.small {
+         @include animate-stars(small);
+         &.star_container_second {
+            @include delay-seconds(small);
+         }
+      }
+      &.medium {
+         @include animate-stars(medium);
+         &.star_container_second {
+            @include delay-seconds(medium);
+         }
+      }
+      &.large {
+         @include animate-stars(large);
+         &.star_container_second {
+            @include delay-seconds(large);
+         }
+      }
+   }
+   .star {
+      aspect-ratio: 1/1;
+      background-color: white;
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.7;
+      &.small {
+         width: 0.5px;
+      }
+      &.medium {
+         width: 2px;
+      }
+      &.large {
+         width: 5px;
+      }
+   }
+}
+
+@keyframes move-up {
+   from {
+      bottom: -100%;
+   }
+   to {
+      bottom: 100%;
+   }
+}

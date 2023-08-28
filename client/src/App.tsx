@@ -10,6 +10,8 @@ import PictureGroups from "./pages/pictures-page/PictureGroups";
 import { usePageLocationContext } from "./contexts/PageLocationContextProvider";
 import SearchResults from "./pages/SearchResults";
 import FamilyMemberDetails from "./components/FamilyMemberDetails";
+import TitleBackground from "./components/TitleBackground/TitleBackground";
+import Title from "./components/Title";
 
 const App: React.FC = () => {
    const { displayLocation } = usePageLocationContext();
@@ -26,7 +28,6 @@ const App: React.FC = () => {
             <Route path="search-results" element={<SearchResults/>} />
             <Route path="*" element={<NotFoundPage />}/>
          </Routes>
-         <FamilyMemberDetails />
       </>
    );
 };

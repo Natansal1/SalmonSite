@@ -9,6 +9,7 @@ import { FamilyPictureCategory } from "../../common/types";
 import Loading from "../Loading";
 import { queryKeys } from "../../common/enums";
 import PageWrapper from "../../components/PageWrapper/PageWrapper";
+import Title from "../../components/Title";
 
 const Pictures: React.FC = () => {
    const navigate = useNavigate();
@@ -29,7 +30,7 @@ const Pictures: React.FC = () => {
 
    return (
       <PageWrapper className="pictures_page page page_scroll">
-         <h1 className="title">תמונות משפחתיות</h1>
+         <Title>תמונות משפחתיות</Title>
          <div className="picture_page_content">
             <CardsLineup
                onClick={(id) => navigate(id.toString())}

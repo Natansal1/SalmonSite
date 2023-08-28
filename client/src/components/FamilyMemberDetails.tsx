@@ -27,7 +27,7 @@ function getInitialValues(member?: FamilyMember) {
    };
 }
 
-// const VALIDATION_SCHEMA = 
+// const VALIDATION_SCHEMA =
 
 const FamilyMemberDetails: React.FC<FamilyMemberDetailsProps> = (props) => {
    const { member } = props;
@@ -54,7 +54,7 @@ const FamilyMemberDetails: React.FC<FamilyMemberDetailsProps> = (props) => {
    }
 
    return (
-      <Dialog open>
+      <Dialog open={false}>
          <FormProvider
             initialValues={getInitialValues(member)}
             onSubmit={handleSubmit}
