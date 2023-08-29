@@ -1,5 +1,10 @@
 @import "../variables.scss";
 
+body:has(.fullscreen) {
+   .header {
+      display: none;
+   }
+}
 .header {
    $header-search-right: calc($header-height + 1vw);
    $header-search-margin-left: 0px;
@@ -116,9 +121,17 @@
    }
    .header_link {
       width: 100%;
-      padding: 2vh 20px;
-      font-size: 1.2rem;
+      padding: 2vh 60px;
+      font-size: 1.5rem;
       font-weight: 550;
+   }
+
+   .divider {
+      height: 1px;
+      background-color: $dark-blue;
+      opacity: 0.3;
+      width: 70%;
+      margin: -2vh 0;
    }
 
    .login_header_button {

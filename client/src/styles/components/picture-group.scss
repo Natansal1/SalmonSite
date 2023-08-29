@@ -6,22 +6,26 @@
    align-items: center;
    justify-content: space-evenly;
    flex-wrap: wrap;
-   gap: 5vh 5vw;
+   gap: 2vh 5vw;
    padding: 0vh 5vw 5vh 5vw;
 }
 
 .picture_group {
-   min-width: min(100%, 500px);
-   box-shadow: $shadow-elevation-medium;
-   background-color: rgba($light-blue, 0.3);
+   margin-top: 2vh;
+   min-width: min(100%, 300px);
+   overflow: hidden;
+   background-color: rgba($faded-blue, 0.3);
    display: flex;
    flex-direction: column;
    align-items: center;
    width: fit-content;
-   border-radius: 10px;
-   padding: 2vh 2vw;
+   border-radius: 15px;
+   padding: 2vh 0;
 
-   .image_gallery {
+   box-shadow: 0px 0.2px 0.2px hsl(240deg 9% 60% / 0.62), -0.2px 0.9px 1px -0.9px hsl(240deg 9% 60% / 0.59),
+      -0.4px 2.4px 2.6px -1.9px hsl(240deg 9% 60% / 0.55), -1.1px 6.2px 6.8px -2.8px hsl(240deg 9% 60% / 0.51);
+
+   .image_gallery:not(.image_gallery_fullscreen) {
       width: min(650px, 90vw);
    }
 

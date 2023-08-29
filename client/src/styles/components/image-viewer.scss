@@ -86,18 +86,16 @@
       }
    }
 
-   &:fullscreen {
-      height: 100vh;
-      width: 100vw;
+   &.image_gallery_fullscreen.image-gallery {
       border: none;
       aspect-ratio: unset;
 
       .control_button {
+         color: white;
          &:hover {
             color: $light-blue;
             transform: scale(1.2);
          }
-         color: white;
       }
 
       .MuiSvgIcon-root {
@@ -110,11 +108,11 @@
       }
 
       .image-gallery-image {
-         height: 80vh;
+         height: 65vh;
          object-fit: contain;
       }
       .image-gallery-thumbnail-image {
-         height: 10vh;
+         height: 8vh;
          object-fit: cover;
       }
 

@@ -1,18 +1,29 @@
 @import "../variables.scss";
 
 .return_button {
-   $background-color: rgba($deep-blue, 0.8);
-   position: fixed;
-   top: 5vh;
-   color: $faded-blue;
+   position: absolute;
+   right: 1vw;
+   top: 1vw;
    font-family: $main-font-family;
-   background-color: $background-color;
-   box-shadow: $shadow-elevation-low;
+   color: white;
+   background-color: transparent;
+   backdrop-filter: blur(2px);
+   box-shadow: none;
    font-size: 1.5rem;
-   width: 10vw;
-   margin-right: 2vw;
+   z-index: 1;
+   border: 1px solid rgba(white, 0.4);
+   display: flex;
+   align-items: center;
+   justify-content: flex-start;
+   font-weight: 600;
+   border-radius: max(calc(10px - 1vw), 5px);
 
    &:hover {
-      background: $background-color;
+      border-color: transparent;
+   }
+
+   .return_icon {
+      position: relative;
+      top: 0.1rem;
    }
 }

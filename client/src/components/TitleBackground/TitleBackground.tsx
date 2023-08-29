@@ -7,13 +7,12 @@ import "../../styles/components/stars-background.scss";
 
 interface TitleBackgroundProps extends Omit<React.HTMLProps<HTMLDivElement>, "ref"> {
    counts?: Record<StarProps["size"], number>;
-   randomize?: boolean;
 }
 
-const sizes: StarProps["size"][] = ["small", "medium", "large"];
+const SIZES: StarProps["size"][] = ["small", "medium", "large"];
 
 const TitleBackground: React.FC<TitleBackgroundProps> = (props) => {
-   const { randomize = false, children, className, counts = { large: 10, medium: 20, small: 30 }, ...rest } = props;
+   const { children, className, counts = { large: 10, medium: 20, small: 30 }, ...rest } = props;
    const [rect, setRect] = useState<DOMRect>();
    const containerRef = useRef<HTMLDivElement | null>(null);
 
@@ -32,12 +31,11 @@ const TitleBackground: React.FC<TitleBackgroundProps> = (props) => {
          }}
          {...rest}
       >
-         {sizes.map((size, index) => (
+         {SIZES.map((size, index) => (
             <StarsContainer
                size={size}
                containerRect={rect}
                count={counts[size]}
-               randomize={randomize}
                key={size + index}
             />
          ))}

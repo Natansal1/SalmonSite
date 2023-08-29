@@ -1,37 +1,46 @@
 import React, { useState } from "react";
-import TitleBackground from "./TitleBackground/TitleBackground";
 import clsx from "clsx";
+import { useWindowListener } from "../common/hooks";
+import { useUserContext } from "../contexts/UserContextProvider.context";
+import TitleBackground from "./TitleBackground/TitleBackground";
+import { StarProps } from "./TitleBackground/Star";
+import ReturnButton from "./ReturnButton";
 import "../styles/components/title.scss";
-import { useTimeout } from "../common/hooks";
 
 interface TitleProps {
    subtitle?: string;
    className?: string;
    children: React.ReactNode;
+   showReturn?: boolean;
+}
+
+function calcStarCount() {
+   const width = window.innerWidth;
+   const small = Math.max(Math.floor(width / 40), 15);
+   const medium = Math.floor((small * 2) / 3);
+   const large = Math.floor(small / 3);
+
+   return {
+      small,
+      medium,
+      large,
+   };
 }
 
 const Title: React.FC<TitleProps> = (props) => {
-   const { children, subtitle, className } = props;
-   const [randomizing, setRandomizing] = useState<boolean>(false);
-   const timeout = useTimeout();
+   const { children, subtitle, className, showReturn } = props;
+   const [starCount, setStarCount] = useState<Record<StarProps["size"], number>>(calcStarCount);
+   const { isMobile } = useUserContext();
 
-   function handleClick() {
-      setRandomizing(true);
-      timeout.set(() => setRandomizing(false), 1000);
-   }
+   useWindowListener("resize", () => setStarCount(calcStarCount));
 
    return (
       <div className="title_container">
          <TitleBackground
             className={clsx(className, "title")}
-            onClick={handleClick}
-            randomize={randomizing}
-            style={{
-               transform: randomizing ? "scale(1.1)" : "scale(1)",
-               transition: "0.1s",
-               filter: randomizing ? "brightness(150%)" : "brightness(100%)",
-            }}
+            counts={starCount}
          >
+            {showReturn && !isMobile && <ReturnButton />}
             <h1>{children}</h1>
             {subtitle && <h2>{subtitle}</h2>}
          </TitleBackground>

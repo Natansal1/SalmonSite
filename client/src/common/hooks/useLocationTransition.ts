@@ -26,7 +26,7 @@ function useLocationTransition() {
    useEffect(() => {
       handleLocationChange();
    }, [location.pathname, displayLocation.pathname]);
-
+   
    return animation;
 }
 

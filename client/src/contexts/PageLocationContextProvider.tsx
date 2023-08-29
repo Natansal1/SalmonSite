@@ -1,6 +1,6 @@
-import { createContextHook } from "@hilma/tools";
 import React, { useEffect, useState } from "react";
 import { Location, useLocation } from "react-router-dom";
+import { createContextHook } from "@hilma/tools";
 import { useTimeout } from "../common/hooks";
 
 export type LocationContextValue = {
@@ -24,7 +24,7 @@ const PageLocationContextProvider: React.FC<PageLocationContextProviderProps> = 
    const [displayLocation, setDisplayLocation] = useState(location);
 
    useEffect(() => {
-       if (location.state && typeof location.state === "object" && location.state.delay === false) {
+      if (location.state && typeof location.state === "object" && location.state.delay === false) {
          setDisplayLocation(location);
       } else {
          timeout.set(() => {

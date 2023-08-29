@@ -29,6 +29,10 @@
    .search_input {
       width: max(45vw, 150px);
 
+      @media screen and (max-width: 600px) {
+         width: max(60vw, 250px);
+      }
+
       .search_input_text {
          font-size: 1.4rem;
          color: white;
@@ -38,6 +42,7 @@
             color: $light-blue;
             opacity: 1;
             font-weight: 600;
+            text-overflow: ellipsis;
          }
       }
    }

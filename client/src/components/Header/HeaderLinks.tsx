@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
-import { IconButton } from "@mui/material";
+import { Divider, IconButton } from "@mui/material";
 import { PAGES_ORDER } from "../../common/constants";
 import { Page } from "../../common/types";
 import { HEADER_MOBILE_START_WIDTH } from "./Header";
@@ -58,14 +58,17 @@ const HeaderLinks: React.FC = () => {
       setDivSlider({ left, width });
    }
 
-   const links = PAGES_ORDER.map((page) => (
-      <HeaderLink
-         isMenu={isMenu}
-         page={page}
-         active={active === page}
-         onClick={handleClick}
-         key={page}
-      />
+   const links = PAGES_ORDER.map((page, index) => (
+      <>
+         <HeaderLink
+            isMenu={isMenu}
+            page={page}
+            active={active === page}
+            onClick={handleClick}
+            key={page}
+         />
+         {isMenu && index !== PAGES_ORDER.length - 1 && <Divider variant="middle" className="divider" />}
+      </>
    ));
 
    return (

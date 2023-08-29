@@ -6,7 +6,6 @@ import { queryKeys } from "../../common/enums";
 import axios from "axios";
 import { FamilyPicture } from "../../common/types";
 import Loading from "../Loading";
-import ReturnButton from "../../components/ReturnButton";
 import PageWrapper from "../../components/PageWrapper/PageWrapper";
 import Title from "../../components/Title";
 
@@ -21,18 +20,21 @@ const PictureGroups: React.FC = () => {
             ...val,
             presentedDate: val.presentedDate ? new Date(val.presentedDate) : undefined,
          })),
-         mainImage: data.mainImage,
       }),
    });
 
    if (status !== "success") return <Loading />;
 
-   const { groups, mainImage, title } = data;
+   const { groups, mainImage, title, description } = data;
 
    return (
       <PageWrapper className="page page_scroll">
-         <Title>{title}</Title>
-         <ReturnButton />
+         <Title
+            subtitle={description}
+            showReturn
+         >
+            {title}
+         </Title>
          <div className="picture_groups_container">
             {groups.map((group, index) => (
                <PictureGroup

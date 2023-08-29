@@ -1,6 +1,7 @@
-import { Button, IconButton } from "@mui/material";
+import { Button } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import ReturnIcon from "@mui/icons-material/Forward";
 
 import "../styles/components/return-button.scss";
 
@@ -27,6 +28,10 @@ const ReturnButton: React.FC<ReturnButtonProps> = (props) => {
          onClick={onClick}
          variant="contained"
       >
+         <ReturnIcon
+            className="return_icon"
+            fontSize="large"
+         />
          חזור
       </Button>
    );

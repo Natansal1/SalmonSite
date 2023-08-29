@@ -1,31 +1,15 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useMemo } from "react";
 import clsx from "clsx";
 import Star, { StarProps } from "./Star";
-
 interface StarsContainerProps {
    count: number;
    size: StarProps["size"];
    className?: string;
    containerRect: DOMRect | undefined;
-   randomize: boolean;
 }
 
 const StarsContainer: React.FC<StarsContainerProps> = (props) => {
-   const { className, count, size, containerRect, randomize } = props;
-   const [forceUpdate, setForceUpdate] = useState<boolean>(false);
-   const interval = useRef<ReturnType<typeof setInterval>>();
-
-   useEffect(() => {
-      clearInterval(interval.current);
-
-      if (!randomize) return;
-
-      interval.current = setInterval(() => {
-         setForceUpdate((prev) => !prev);
-      }, 10);
-
-      return () => clearInterval(interval.current);
-   }, [randomize]);
+   const { className, count, size, containerRect } = props;
 
    const stars = useMemo(() => {
       const arr: React.ReactNode[] = [];
@@ -50,7 +34,7 @@ const StarsContainer: React.FC<StarsContainerProps> = (props) => {
          );
       }
       return arr;
-   }, [count, containerRect?.width, containerRect?.height, forceUpdate]);
+   }, [count, containerRect?.width, containerRect?.height]);
 
    return (
       <>

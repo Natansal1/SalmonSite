@@ -104,7 +104,7 @@ const SearchBar: React.FC<SearchBarProps> = (props) => {
             </IconButton>
             <TextField
                className="search_input"
-               placeholder="חיפוש"
+               placeholder="ניתן לחפש לפי אנשים, אירועים ועוד..."
                variant="standard"
                InputLabelProps={{ className: "search_label" }}
                value={value}

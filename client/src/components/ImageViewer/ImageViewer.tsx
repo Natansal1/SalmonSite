@@ -78,9 +78,7 @@ const ImageViewer: React.FC<ImageViewerProps> = (props) => {
    return (
       <ImageGallery
          items={items}
-         onClick={() =>
-            !document.fullscreenElement ? galleryRef.current?.fullScreen() : galleryRef.current?.exitFullScreen()
-         }
+         onClick={() => (!isFullscreen ? galleryRef.current?.fullScreen() : galleryRef.current?.exitFullScreen())}
          isRTL
          infinite
          thumbnailPosition="bottom"
@@ -97,6 +95,7 @@ const ImageViewer: React.FC<ImageViewerProps> = (props) => {
          slideInterval={4000 - Math.random() * 1000}
          additionalClass={clsx(className, "image_gallery", {
             image_gallery_one: items.length === 1,
+            image_gallery_fullscreen: isFullscreen,
          })}
          renderFullscreenButton={(onClick, isFullScreen) => (
             <IconButton
