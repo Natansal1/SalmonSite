@@ -30,7 +30,7 @@
       width: max(45vw, 150px);
 
       @media screen and (max-width: 600px) {
-         width: max(60vw, 250px);
+         width: calc(100vw - $header-height - 90px);
       }
 
       .search_input_text {
@@ -43,6 +43,16 @@
             opacity: 1;
             font-weight: 600;
             text-overflow: ellipsis;
+
+            @media screen and (max-width: 360px) {
+               font-size: 1.2rem;
+            }
+            @media screen and (max-width: 330px) {
+               font-size: 1.1rem;
+            }
+            @media screen and (max-width: 300px) {
+               font-size: 1rem;
+            }
          }
       }
    }
