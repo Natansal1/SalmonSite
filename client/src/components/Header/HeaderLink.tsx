@@ -31,28 +31,28 @@ import AutoStoriesTwoToneIcon from "@mui/icons-material/AutoStoriesTwoTone";
 
 const ICONS: Record<Page, { active: React.ReactNode; not_active: React.ReactNode }> = {
    home: {
-      active: <HomeTwoToneIcon />,
-      not_active: <HomeOutlinedIcon />,
+      active: <HomeTwoToneIcon key="active_home" />,
+      not_active: <HomeOutlinedIcon key="nonactive_home" />,
    },
    congrats: {
-      active: <RedeemTwoToneIcon />,
-      not_active: <RedeemIcon />,
+      active: <RedeemTwoToneIcon key="active_congrats" />,
+      not_active: <RedeemIcon key="nonactive_congrats" />,
    },
    occasions: {
-      active: <CakeTwoToneIcon />,
-      not_active: <CakeOutlinedIcon />,
+      active: <CakeTwoToneIcon key="active_occasions" />,
+      not_active: <CakeOutlinedIcon key="nonactive_occasions" />,
    },
    pictures: {
-      active: <CameraAltTwoToneIcon />,
-      not_active: <CameraAltOutlinedIcon />,
+      active: <CameraAltTwoToneIcon key="active_picture" />,
+      not_active: <CameraAltOutlinedIcon key="nonactive_picture" />,
    },
    origin: {
-      active: <AccessTimeTwoToneIcon />,
-      not_active: <AccessTimeOutlinedIcon />,
+      active: <AccessTimeTwoToneIcon key="active_origin" />,
+      not_active: <AccessTimeOutlinedIcon key="nonactive_origin" />,
    },
    stories: {
-      active: <AutoStoriesTwoToneIcon />,
-      not_active: <AutoStoriesOutlinedIcon />,
+      active: <AutoStoriesTwoToneIcon key="active_stories" />,
+      not_active: <AutoStoriesOutlinedIcon key="nonactive_stories" />,
    },
 };
 

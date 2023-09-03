@@ -59,16 +59,20 @@ const HeaderLinks: React.FC = () => {
    }
 
    const links = PAGES_ORDER.map((page, index) => (
-      <>
+      <React.Fragment key={page}>
          <HeaderLink
             isMenu={isMenu}
             page={page}
             active={active === page}
             onClick={handleClick}
-            key={page}
          />
-         {isMenu && index !== PAGES_ORDER.length - 1 && <Divider variant="middle" className="divider" />}
-      </>
+         {isMenu && index !== PAGES_ORDER.length - 1 && (
+            <Divider
+               variant="middle"
+               className="divider"
+            />
+         )}
+      </React.Fragment>
    ));
 
    return (

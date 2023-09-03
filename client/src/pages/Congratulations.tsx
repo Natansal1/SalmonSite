@@ -60,7 +60,7 @@ const DbInfo: StoryType[] = [
 
 const Congratulations: React.FC = () => {
    return (
-      <PageWrapper className="page congrats_page">
+      <PageWrapper className="page congrats_page page_scroll">
          {DbInfo.map((e, index) => (
             <CongratsItem
                key={index}
