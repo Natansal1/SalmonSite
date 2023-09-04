@@ -1,11 +1,11 @@
 @import "../variables.scss";
 
 .stories_page {
-   overflow-y: scroll;
-   display: flex;
-   padding: 5vw;
-   flex-wrap: wrap;
-   gap: 30px;
+   .stories_container {
+      width: 100%;
+      height: 100%;
+      padding: 3vh 2vw;
+   }
 
    .story_container {
       padding: 2vh;
@@ -38,7 +38,7 @@
       color: $gray-text;
       margin: 2vh 0 2vh 0;
    }
-   
+
    @media screen and (max-width: 950px) {
       .story_container {
          flex-direction: column;
@@ -54,7 +54,7 @@
          width: 90vw;
       }
 
-      .text_container{
+      .text_container {
          max-width: 90%;
          padding-bottom: 2vh;
          padding-left: unset;

@@ -57,6 +57,10 @@
       opacity: 0;
       font-size: 1.5rem;
       transition: 0.3s;
+      display: flex;
+      flex-direction: row-reverse;
+      gap: 5px;
+      border-radius: 3px;
    }
 
    .image-gallery-icon {
@@ -85,43 +89,43 @@
          height: 100%;
       }
    }
+   //TODO: remove this
+   // &.image_gallery_fullscreen.image-gallery {
+   //    border: none;
+   //    aspect-ratio: unset;
 
-   &.image_gallery_fullscreen.image-gallery {
-      border: none;
-      aspect-ratio: unset;
+   //    .control_button {
+   //       color: white;
+   //       &:hover {
+   //          color: $light-blue;
+   //          transform: scale(1.2);
+   //       }
+   //    }
 
-      .control_button {
-         color: white;
-         &:hover {
-            color: $light-blue;
-            transform: scale(1.2);
-         }
-      }
+   //    .MuiSvgIcon-root {
+   //       font-size: 3rem;
+   //    }
 
-      .MuiSvgIcon-root {
-         font-size: 3rem;
-      }
+   //    .image-gallery-content.fullscreen {
+   //       height: 100%;
+   //       width: 100%;
+   //    }
 
-      .image-gallery-content.fullscreen {
-         height: 100%;
-         width: 100%;
-      }
+   //    .image-gallery-image {
+   //       height: 65vh;
+   //       object-fit: contain;
+   //    }
+   //    .image-gallery-thumbnail-image {
+   //       height: 8vh;
+   //       object-fit: cover;
+   //    }
 
-      .image-gallery-image {
-         height: 65vh;
-         object-fit: contain;
-      }
-      .image-gallery-thumbnail-image {
-         height: 8vh;
-         object-fit: cover;
-      }
-
-      .image-gallery-description {
-         font-size: 3rem;
-      }
-      .image-gallery-index {
-         font-size: 3rem;
-         opacity: 1;
-      }
-   }
+   //    .image-gallery-description {
+   //       font-size: 3rem;
+   //    }
+   //    .image-gallery-index {
+   //       font-size: 3rem;
+   //       opacity: 1;
+   //    }
+   // }
 }

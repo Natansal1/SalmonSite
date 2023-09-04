@@ -4,6 +4,7 @@ import { MediaType } from "../common/types";
 import "../styles/pages/congrats.style.scss";
 import CongratsItem from "../components/CongratsItem";
 import PageWrapper from "../components/PageWrapper/PageWrapper";
+import Title from "../components/Title";
 
 const DbInfo: StoryType[] = [
    {
@@ -61,12 +62,15 @@ const DbInfo: StoryType[] = [
 const Congratulations: React.FC = () => {
    return (
       <PageWrapper className="page congrats_page page_scroll">
-         {DbInfo.map((e, index) => (
-            <CongratsItem
-               key={index}
-               story={e}
-            />
-         ))}
+         <Title>ברכות ואיחולים</Title>
+         <div className="congrats_container">
+            {DbInfo.map((e, index) => (
+               <CongratsItem
+                  key={index}
+                  story={e}
+               />
+            ))}
+         </div>
       </PageWrapper>
    );
 };

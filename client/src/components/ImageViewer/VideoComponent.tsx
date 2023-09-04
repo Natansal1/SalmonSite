@@ -8,10 +8,11 @@ interface VideoComponentProps {
    galleryRef: React.MutableRefObject<ImageGallery | null>;
    description?: string;
    index: number;
+   onClick: () => void;
 }
 
 const VideoComponent: React.FC<VideoComponentProps> = (props) => {
-   const { src, description, galleryRef, index } = props;
+   const { src, description, galleryRef, index, onClick } = props;
    const [playing, setPlaying] = useState<boolean>(true);
    const playerRef = useRef<YouTubeEvent | null>(null);
 
@@ -28,9 +29,7 @@ const VideoComponent: React.FC<VideoComponentProps> = (props) => {
    return (
       <div
          className="video_component_container image-gallery-image"
-         onClick={() =>
-            !document.fullscreenElement ? galleryRef.current?.fullScreen() : galleryRef.current?.exitFullScreen()
-         }
+         onClick={onClick}
       >
          <YouTube
             onReady={(e) => {

@@ -1,0 +1,76 @@
+@import "../variables.scss";
+
+.fullscreen_media {
+   position: fixed;
+   inset: 0;
+   background-color: black;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   z-index: 5000;
+   padding: 2vh 2vw;
+
+   .image_gallery_fullscreen {
+      height: 100%;
+      width: 100%;
+   }
+
+   .image-gallery-content {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+
+      .image-gallery-slide-wrapper {
+         width: 100%;
+         height: 80%;
+      }
+
+      .image-gallery-thumbnails {
+         width: 100%;
+      }
+   }
+
+   .image-gallery-swipe {
+      height: 90%;
+   }
+   .image-gallery-slides {
+      height: 100%;
+   }
+   .image-gallery-slide {
+      height: 100%;
+   }
+   .image-gallery-image {
+      height: 100%;
+   }
+
+   .image-gallery-index {
+      font-size: 2rem;
+      display: flex;
+      flex-direction: row-reverse;
+      gap: 5px;
+      border-radius: 3px;
+   }
+
+   .fullscreen_button {
+      float: right;
+   }
+
+   .play_button {
+      float: left;
+   }
+
+   .image-gallery-icon,
+   .control_button {
+      svg {
+         font-size: 5rem;
+      }
+      padding: 8px;
+      color: white;
+      transition: 0.2s;
+      &:hover {
+         color: $light-blue;
+      }
+   }
+}

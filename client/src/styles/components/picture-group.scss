@@ -25,7 +25,7 @@
    box-shadow: 0px 0.2px 0.2px hsl(240deg 9% 60% / 0.62), -0.2px 0.9px 1px -0.9px hsl(240deg 9% 60% / 0.59),
       -0.4px 2.4px 2.6px -1.9px hsl(240deg 9% 60% / 0.55), -1.1px 6.2px 6.8px -2.8px hsl(240deg 9% 60% / 0.51);
 
-   .image_gallery:not(.image_gallery_fullscreen) {
+   .image_gallery {
       width: min(650px, 90vw);
    }
 

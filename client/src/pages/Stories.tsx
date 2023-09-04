@@ -4,6 +4,7 @@ import { StoryType } from "../common/types/ServerTypes/Story.type";
 import { MediaType } from "../common/types";
 import PageWrapper from "../components/PageWrapper/PageWrapper";
 import "../styles/pages/story.style.scss";
+import { Grid } from "@mui/material";
 
 const DbInfo: StoryType[] = [
    {
@@ -80,12 +81,18 @@ const DbInfo: StoryType[] = [
 const Stories: React.FC = () => {
    return (
       <PageWrapper className="page page_scroll stories_page">
-         {DbInfo.map((e, index) => (
-            <Story
-               key={index}
-               story={e}
-            />
-         ))}
+         <Grid
+            className="stories_container"
+            container
+            gap={5}
+         >
+            {DbInfo.map((story, index) => (
+               <Story
+                  key={"story_" + index}
+                  story={story}
+               />
+            ))}
+         </Grid>
       </PageWrapper>
    );
 };

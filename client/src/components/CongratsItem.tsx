@@ -11,7 +11,7 @@ const CongratsItem: React.FC<StoryProps> = (props) => {
    const { _id, title, media, content, members, presentedDate } = props.story;
 
    return (
-      <div className="congrats_container">
+      <div className="congrats_instance_container">
          <div className="text_container">
             <h2 className="story_title">{title}</h2>
             <div>{content}</div>

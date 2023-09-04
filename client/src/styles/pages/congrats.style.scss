@@ -1,21 +1,18 @@
 @import "../variables.scss";
 
 .congrats_page {
-   overflow-y: scroll;
-   display: flex;
-   padding: 5vw;
-   align-items: flex-start;
-
-   //    height: fit-content;
-//    flex-wrap: wrap;
-flex-direction: column;
-   gap: 30px;
-
    .congrats_container {
+      display: flex;
+      padding: 0 5vw;
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 30px;
+      width: 100%;
+   }
+   .congrats_instance_container {
       padding: 2vh;
       border-radius: 10px;
       background-color: #d9eff4;
-      //   border: 3px solid;
       display: flex;
       box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1607843137254902);
       align-items: center;

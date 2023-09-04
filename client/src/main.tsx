@@ -14,6 +14,7 @@ import "./styles/reset.scss";
 import "./styles/generic.scss";
 
 import App from "./App.tsx";
+import FullScreenContextProvider from "./contexts/FullScreenContextProvider.context.tsx";
 
 const theme = createTheme({
    palette: {
@@ -45,6 +46,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
          AlertProvider,
          BrowserRouter,
          PageLocationContextProvider,
+         FullScreenContextProvider,
          SearchContextProvider,
          UserContextProvider,
          [ThemeProvider, { theme: theme }],
