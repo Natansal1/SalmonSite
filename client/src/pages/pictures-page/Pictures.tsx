@@ -30,7 +30,15 @@ const Pictures: React.FC = () => {
 
    return (
       <PageWrapper className="pictures_page page page_scroll">
-         <Title>תמונות משפחתיות</Title>
+         <Title
+            lordIcon={{
+               src: "https://cdn.lordicon.com/qierxeeb.json",
+               trigger: "hover",
+               colors: "primary:#7166ee,secondary:#d1faf0,tertiary:#ebe6ef,quaternary:#110a5c,quinary:#4f1091",
+            }}
+         >
+            תמונות משפחתיות
+         </Title>
          <div className="picture_page_content">
             <CardsLineup
                onClick={(id) => navigate(id.toString())}

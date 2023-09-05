@@ -62,7 +62,16 @@ const DbInfo: StoryType[] = [
 const Congratulations: React.FC = () => {
    return (
       <PageWrapper className="page congrats_page page_scroll">
-         <Title>ברכות ואיחולים</Title>
+         <Title
+            lordIcon={{
+               src: "https://cdn.lordicon.com/liqouopv.json",
+               delay: 200,
+               colors: "primary:#1b1091,secondary:#9ce5f4",
+               trigger: "loop-on-hover",
+            }}
+         >
+            ברכות ואיחולים
+         </Title>
          <div className="congrats_container">
             {DbInfo.map((e, index) => (
                <CongratsItem

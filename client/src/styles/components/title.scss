@@ -19,6 +19,10 @@
          font-size: 4rem;
          font-weight: 900;
          text-align: center;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         gap: 2vw;
       }
       h2 {
          z-index: 1;

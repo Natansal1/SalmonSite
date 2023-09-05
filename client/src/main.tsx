@@ -9,6 +9,7 @@ import PageLocationContextProvider from "./contexts/PageLocationContextProvider.
 import SearchContextProvider from "./contexts/SearchContextProvider.context.tsx";
 import { AlertProvider, CSSPrioritize } from "@hilma/forms";
 import "filter-and-map";
+import "./common/types/lord-icons.type.ts";
 
 import "./styles/reset.scss";
 import "./styles/generic.scss";

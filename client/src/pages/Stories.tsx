@@ -5,6 +5,7 @@ import { MediaType } from "../common/types";
 import PageWrapper from "../components/PageWrapper/PageWrapper";
 import { Grid } from "@mui/material";
 import "../styles/pages/story.style.scss";
+import Title from "../components/Title";
 
 const DbInfo: StoryType[] = [
    {
@@ -81,6 +82,15 @@ const DbInfo: StoryType[] = [
 const Stories: React.FC = () => {
    return (
       <PageWrapper className="page page_scroll stories_page">
+         <Title
+            lordIcon={{
+               src: "https://cdn.lordicon.com/dxoycpzg.json",
+               trigger: "morph",
+               colors: "primary:#30c9e8,secondary:#9ce5f4,tertiary:#4bb3fd,quaternary:#d1e3fa,quinary:#a39cf4",
+            }}
+         >
+            סבתא שושי מספרת
+         </Title>
          <Grid
             className="stories_container"
             container

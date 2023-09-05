@@ -2,8 +2,8 @@ import { Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
 import { MongooseModule } from "@nestjs/mongoose";
 import { FamilyMemberModule } from "./family-member/family-member.module";
-import { FamilyPictureModule } from './family-picture/family-picture.module';
-import { SearchModule } from './search/search.module';
+import { FamilyPictureModule } from "./family-picture/family-picture.module";
+import { SearchModule } from "./search/search.module";
 
 @Module({
    imports: [
