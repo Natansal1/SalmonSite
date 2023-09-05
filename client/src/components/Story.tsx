@@ -18,7 +18,6 @@ const Story: React.FC<StoryProps> = (props) => {
    }
 
    const formattedDate = presentedDate ? formatDate(new Date(presentedDate)) : undefined;
-
    return (
       <Grid
          className="story_container"
@@ -29,9 +28,9 @@ const Story: React.FC<StoryProps> = (props) => {
          <div className="text_container">
             <h2 className="story_title">
                {title}
-               {presentedDate && <span className="story_date">{}</span>}
+               {formattedDate && <span className="story_date">{formattedDate.date}</span>}
             </h2>
-            <div>{content}</div>
+            <p className="story_content">{content}</p>
          </div>
 
          <ImageViewer

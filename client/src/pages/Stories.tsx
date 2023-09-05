@@ -3,8 +3,8 @@ import Story from "../components/Story";
 import { StoryType } from "../common/types/ServerTypes/Story.type";
 import { MediaType } from "../common/types";
 import PageWrapper from "../components/PageWrapper/PageWrapper";
-import "../styles/pages/story.style.scss";
 import { Grid } from "@mui/material";
+import "../styles/pages/story.style.scss";
 
 const DbInfo: StoryType[] = [
    {
@@ -40,7 +40,7 @@ const DbInfo: StoryType[] = [
    },
    {
       _id: "",
-      title: "",
+      title: "נתן הגבגבר",
       media: [],
       content:
          'הסברתי לאילה שהיא "שלמון" ושני "שלמון" ורינת "שלמון" ושי ולימור, ועירית... אמרתי שעירית היתה שלמון אבל היא  התחתנה ועכשיו היא "הלוי" אז אילה חושבת רגע ואומרת:"סבתא , אז את עדין לא התחתנת נתן. חמוד חמוד בינתיים לא עושה כלום... למרות שמיכאל ומלי אומרים שהוא מתהפך אני עדין לא ראיתי את ביצועי',
@@ -65,7 +65,7 @@ const DbInfo: StoryType[] = [
    },
    {
       _id: "",
-      title: "",
+      title: "מי ישמע ישמור ויציל?",
       media: [
          {
             src: "https://static.wixstatic.com/media/72de53_8693cb69c01042d483df5cd8ef09aacc~mv2_d_2816_2112_s_2.jpg/v1/fill/w_201,h_173,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/72de53_8693cb69c01042d483df5cd8ef09aacc~mv2_d_2816_2112_s_2.jpg",

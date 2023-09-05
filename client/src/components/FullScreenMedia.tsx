@@ -8,7 +8,7 @@ import PlayArrowRoundedIcon from "@mui/icons-material/PlayArrowRounded";
 import PauseRoundedIcon from "@mui/icons-material/PauseRounded";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
-import { useTimeout } from "../common/hooks";
+import { useTimeout, useWindowListener } from "../common/hooks";
 import "../styles/components/fullscreen-media.scss";
 
 interface FullScreenMediaProps {
@@ -25,7 +25,9 @@ const CLOSED_VARIANT = { scale: 0, opacity: 0 };
 const FullScreenMedia: React.FC<FullScreenMediaProps> = (props) => {
    const { media = [], open, index = 0, onClose, isPlaying = true } = props;
    const [debouncedOpen, setDebouncedOpen] = useState<boolean>(open);
+   const [showNav, setShowNav] = useState<boolean>(window.innerWidth > 600);
    const timeout = useTimeout();
+   useWindowListener("resize", () => setShowNav(window.innerWidth > 600));
 
    useEffect(() => {
       if (open) setDebouncedOpen(true);
@@ -60,7 +62,7 @@ const FullScreenMedia: React.FC<FullScreenMediaProps> = (props) => {
                showBullets
                showThumbnails
                showIndex
-               showNav
+               showNav={showNav}
                slideDuration={300}
                slideInterval={4000 - Math.random() * 1000}
                renderFullscreenButton={() => (
