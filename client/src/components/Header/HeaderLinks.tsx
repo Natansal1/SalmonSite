@@ -77,7 +77,7 @@ const HeaderLinks: React.FC = () => {
 
    return (
       <>
-         <div className="header_links">
+         <nav className="header_links">
             {isMenu ? (
                <HeaderMenu
                   open={drawOpen}
@@ -95,7 +95,7 @@ const HeaderLinks: React.FC = () => {
                   style={sliderStyle}
                />
             )}
-         </div>
+         </nav>
          {isMenu && (
             <IconButton
                onClick={() => setDrawOpen(true)}

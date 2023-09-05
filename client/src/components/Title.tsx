@@ -49,8 +49,8 @@ const Title: React.FC<TitleProps> = (props) => {
             counts={starCount}
          >
             {showReturn && !isMobile && <ReturnButton />}
-            <h1>
-               {children}
+            <section className="title_main_section">
+               <h1>{children}</h1>
                {lordIcon && (
                   <lord-icon
                      src={lordIcon.src}
@@ -60,7 +60,7 @@ const Title: React.FC<TitleProps> = (props) => {
                      style={{ height: "100px", width: "100px", ...lordIcon.style }}
                   />
                )}
-            </h1>
+            </section>
             {subtitle && <h2>{subtitle}</h2>}
          </TitleBackground>
       </div>

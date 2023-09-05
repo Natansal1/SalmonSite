@@ -5,11 +5,10 @@ import Header from "./components/Header/Header";
 import Pictures from "./pages/pictures-page/Pictures";
 import Stories from "./pages/Stories";
 import Congratulations from "./pages/Congratulations";
-import HebrewCalender from "./components/HeberewCalender/HebrewCalender";
 import PictureGroups from "./pages/pictures-page/PictureGroups";
 import { usePageLocationContext } from "./contexts/PageLocationContextProvider";
 import SearchResults from "./pages/SearchResults";
-import FullScreenMedia from "./components/FullScreenMedia";
+import Home from "./pages/home-page/Home";
 
 const App: React.FC = () => {
    const { displayLocation } = usePageLocationContext();
@@ -18,7 +17,7 @@ const App: React.FC = () => {
       <>
          <Header />
          <Routes location={displayLocation}>
-            <Route path="/" element={<HebrewCalender />} />
+            <Route path="/" element={<Home />} />
             <Route path="pictures" element={<Pictures />} />
             <Route path="pictures/:groupId" element={<PictureGroups />}/>
             <Route path="stories" element={<Stories />}/>    
