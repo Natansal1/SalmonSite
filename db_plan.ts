@@ -46,12 +46,10 @@ type Origin = {
    pages: Page[];
 };
 
-type UpdateEvent = {
+export type UpdateEvent = {
    start: Date;
    end?: Date; //defaults to one day
    title: string;
-   allDay?: boolean; //defaults to false
-   categories?: string[];
    url?: string;
 };
 

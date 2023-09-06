@@ -4,6 +4,7 @@ import { MongooseModule } from "@nestjs/mongoose";
 import { FamilyMemberModule } from "./family-member/family-member.module";
 import { FamilyPictureModule } from "./family-picture/family-picture.module";
 import { SearchModule } from "./search/search.module";
+import { UpdateEventModule } from './update-event/update-event.module';
 
 @Module({
    imports: [
@@ -17,6 +18,7 @@ import { SearchModule } from "./search/search.module";
       FamilyMemberModule,
       FamilyPictureModule,
       SearchModule,
+      UpdateEventModule,
    ],
    controllers: [],
    providers: [],
