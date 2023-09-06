@@ -5,8 +5,8 @@ import { useUserContext } from "../contexts/UserContextProvider.context";
 import TitleBackground from "./TitleBackground/TitleBackground";
 import { StarProps } from "./TitleBackground/Star";
 import ReturnButton from "./ReturnButton";
-import "../styles/components/title.scss";
 import { LordIconTrigger } from "../common/types/lord-icons.type";
+import "../styles/components/title.scss";
 
 interface TitleProps {
    subtitle?: string;
@@ -51,7 +51,7 @@ const Title: React.FC<TitleProps> = (props) => {
             {showReturn && !isMobile && <ReturnButton />}
             <section className="title_main_section">
                <h1>{children}</h1>
-               {lordIcon && (
+               {lordIcon && window.innerWidth > 600 && (
                   <lord-icon
                      src={lordIcon.src}
                      trigger={lordIcon.trigger}

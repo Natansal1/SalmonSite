@@ -6,21 +6,12 @@ body:has(.fullscreen) {
    }
 }
 .header {
-   $header-search-right: calc($header-height);
-   $header-search-margin-left: 0px;
-   $header-icon-margin-left: calc($header-search-margin-left + 46px);
-
    display: flex;
    flex-direction: row;
    align-items: center;
    justify-content: space-evenly;
    height: $header-height;
    color: $gray;
-
-   .header_search {
-      position: fixed;
-      right: $header-search-right;
-   }
 
    .login_header_button {
       margin-left: 1vw;
@@ -52,7 +43,6 @@ body:has(.fullscreen) {
       border-radius: 100vh;
       object-fit: cover;
       object-position: right;
-      margin-left: $header-icon-margin-left;
    }
 
    .header_links {
@@ -67,7 +57,7 @@ body:has(.fullscreen) {
          box-sizing: content-box;
          font-size: medium;
          font-weight: 550;
-         font-size: 0.9rem;
+         font-size: 1rem;
          margin: 0;
          padding: 0;
          height: 100%;
@@ -75,7 +65,7 @@ body:has(.fullscreen) {
          display: flex;
          flex-direction: row-reverse;
          align-items: center;
-         justify-content: space-evenly;
+         justify-content: center;
          gap: 0.5vw;
          transition: 150ms;
          flex: 1;

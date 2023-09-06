@@ -1,5 +1,111 @@
 @import "../variables.scss";
 
+@mixin chalk-text {
+   background-image: url("/images/chalk-bg.jpg");
+   background-size: cover;
+   -webkit-background-clip: text;
+   -webkit-text-fill-color: transparent;
+   -webkit-font-smoothing: antialiased;
+}
+
 .updates_board {
-   background-image: url("/images/chalkboard_bg.webp");
+   height: calc(100% - 20px);
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: flex-start;
+   flex: 1;
+   margin: 10px;
+   min-width: min(100%, 400px);
+
+   .updates_container {
+      max-height: 100%;
+      flex: 1;
+      background-image: url("/images/chalkboard_bg.webp");
+      position: relative;
+      border-radius: 10px;
+      padding-top: 3.2rem;
+
+      &:before {
+         content: "";
+         position: absolute;
+         inset: -10px;
+         background-image: url("/images/wood_bg.webp");
+         z-index: -1;
+         border-radius: 20px;
+         box-shadow: $home_box_shadow;
+      }
+
+      &:after {
+         content: "מה חדש החודש?";
+         position: absolute;
+         top: 0;
+         right: 0;
+         left: 0;
+         text-align: center;
+         font-size: 2.4rem;
+         font-family: $chalk-font;
+         color: white;
+      }
+   }
+
+   .updates_list {
+      width: 100%;
+      height: 100%;
+      padding: max(1vw, 5px);
+      color: white;
+      list-style: none;
+      overflow-y: auto;
+
+      .update_instance {
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+         justify-content: space-evenly;
+         font-weight: 600;
+         padding: 1vh 1vw;
+         background-color: rgba(white, 0.1);
+         backdrop-filter: blur(1px);
+         border-radius: 5px;
+
+         &:after {
+            content: "📎";
+            position: absolute;
+            font-size: 1.4rem;
+         }
+
+         &:nth-child(2n + 1) {
+            &:after {
+               top: -12px;
+               right: -2px;
+               transform: rotate(270deg);
+            }
+         }
+
+         &:nth-child(2n) {
+            &:after {
+               top: -12px;
+               left: -2px;
+            }
+         }
+
+         .update_time {
+            width: max-content;
+            font-size: 1.05rem;
+            text-align: center;
+            opacity: 0.8;
+         }
+
+         .update_link {
+            @include chalk-text();
+            font-family: $second-font-family;
+            text-align: center;
+            font-size: 1.1rem;
+            &.update_link_clickable {
+               text-decoration: underline;
+               text-decoration-color: rgba(white, 0.8);
+            }
+         }
+      }
+   }
 }

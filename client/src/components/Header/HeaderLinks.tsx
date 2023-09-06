@@ -104,7 +104,6 @@ const HeaderLinks: React.FC = () => {
                <MenuIcon />
             </IconButton>
          )}
-         <HeaderSearch />
          <UserAvatar isMenu={isMenu} />
       </>
    );

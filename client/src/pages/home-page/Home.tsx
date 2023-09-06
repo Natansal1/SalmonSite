@@ -1,13 +1,13 @@
 import React from "react";
 import PageWrapper from "../../components/PageWrapper/PageWrapper";
 import Title from "../../components/Title";
+import UpdatesBoard from "../../components/HomeComponents/UpdatesBoard";
 
 import "../../styles/pages/home-page.scss";
-import UpdatesBoard from "../../components/HomeComponents/UpdatesBoard";
 
 const Home: React.FC = () => {
    return (
-      <PageWrapper className="page home_page">
+      <PageWrapper className={"page home_page"}>
          <Title
             lordIcon={{
                src: "https://cdn.lordicon.com/hjbsbdhw.json",
@@ -17,7 +17,14 @@ const Home: React.FC = () => {
          >
             האתר של סבתא שושי
          </Title>
-         <UpdatesBoard />
+         <div className="home_bottom_section">
+            <img
+            className="home_page_gif"
+               src="/images/home-page-gif.gif"
+               alt="סרטון יוני"
+            />
+            <UpdatesBoard />
+         </div>
       </PageWrapper>
    );
 };

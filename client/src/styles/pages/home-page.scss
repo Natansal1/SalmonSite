@@ -1,4 +1,34 @@
 @import "../variables.scss";
 
 .home_page {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: flex-start;
+   padding-bottom: 20px;
+
+   .home_bottom_section {
+      flex: 1;
+      height: calc(100% - min(25vh, 20vw));
+      width: 100%;
+      padding: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      overflow-y: auto;
+      overflow-x: hidden;
+   }
+
+   .home_page_gif {
+      height: min(100%, 60vh);
+      max-width: 95vw;
+      border-radius: 20px;
+      box-shadow: $home_box_shadow;
+
+      @media screen and (max-width: 600px) {
+         height: auto;
+      }
+   }
 }

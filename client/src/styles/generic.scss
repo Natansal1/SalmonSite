@@ -5,10 +5,10 @@
    height: calc(100vh - $header-height);
    background-color: $background-gray;
    width: 100%;
-   padding-bottom: 100px;
 
    &.page_scroll {
       overflow: auto;
+      padding-bottom: 100px;
    }
 
    &:has(.fullscreen) {
