@@ -24,28 +24,46 @@ export class UpdateEventService {
             $match: {
                $or: [
                   {
-                     start: {
-                        $and: [
-                           {
+                     $and: [
+                        {
+                           start: {
                               $gte: start,
                            },
-                           {
+                        },
+                        {
+                           start: {
                               $lte: end,
                            },
-                        ],
-                     },
+                        },
+                     ],
                   },
                   {
-                     end: {
-                        $and: [
-                           {
+                     $and: [
+                        {
+                           end: {
                               $gte: start,
                            },
-                           {
+                        },
+                        {
+                           end: {
                               $lte: end,
                            },
-                        ],
-                     },
+                        },
+                     ],
+                  },
+                  {
+                     $and: [
+                        {
+                           start: {
+                              $lte: start,
+                           },
+                        },
+                        {
+                           end: {
+                              $gte: end,
+                           },
+                        },
+                     ],
                   },
                ],
             },
