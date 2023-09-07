@@ -44,6 +44,7 @@ const UpdatesBoard: React.FC = () => {
                container
                gap={1}
                justifyContent="space-evenly"
+               direction="row"
             >
                {events === undefined ? (
                   <LoadingText />
@@ -56,6 +57,13 @@ const UpdatesBoard: React.FC = () => {
                      <UpdateInstance
                         update={event}
                         key={event.title + index}
+                        sx={
+                           events.length < 7
+                              ? {
+                                   height: "fit-content",
+                                }
+                              : undefined
+                        }
                      />
                   ))
                )}

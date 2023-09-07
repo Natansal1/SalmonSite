@@ -19,9 +19,10 @@ const Home: React.FC = () => {
          </Title>
          <div className="home_bottom_section">
             <img
-            className="home_page_gif"
+               className="home_page_gif"
                src="/images/home-page-gif.gif"
                alt="סרטון יוני"
+               loading="lazy"
             />
             <UpdatesBoard />
          </div>

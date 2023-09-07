@@ -1,16 +1,18 @@
 import React from "react";
-import { UpdateEvent } from "../../common/types";
-import { countLoop, formatDate, random } from "../../common/functions";
+import { Grid, SxProps } from "@mui/material";
 import clsx from "clsx";
-import { Grid } from "@mui/material";
+import { countLoop, formatDate, random } from "../../common/functions";
+import { UpdateEvent } from "../../common/types";
 
 interface UpdateInstanceProps {
    update: UpdateEvent;
+   sx?: SxProps;
 }
 
 const UpdateInstance: React.FC<UpdateInstanceProps> = (props) => {
    const {
       update: { start, title, end, url },
+      sx,
    } = props;
 
    const startFormat = formatDate(start);
@@ -24,8 +26,8 @@ const UpdateInstance: React.FC<UpdateInstanceProps> = (props) => {
       <Grid
          className="update_instance"
          item
+         sx={{ backgroundColor: randomBg, ...sx }}
          xs
-         sx={{ backgroundColor: randomBg }}
       >
          <span className="update_time">{dateString}</span>
          <a
@@ -33,11 +35,11 @@ const UpdateInstance: React.FC<UpdateInstanceProps> = (props) => {
                update_link_clickable: Boolean(url),
             })}
             href={url}
+            target={url?.startsWith("/") ? undefined : "_"}
          >
             {title}
          </a>
       </Grid>
    );
 };
-
 export default UpdateInstance;

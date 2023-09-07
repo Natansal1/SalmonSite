@@ -26,8 +26,10 @@
       max-width: 95vw;
       border-radius: 20px;
       box-shadow: $home_box_shadow;
-
-      @media screen and (max-width: 600px) {
+   }
+   @media screen and (max-width: 600px) {
+      .home_page_gif,
+      .updates_board {
          height: auto;
       }
    }

@@ -67,7 +67,8 @@
          padding: max(1vh, 10px) max(1vw, 10px);
          backdrop-filter: blur(1px);
          border-radius: 5px;
-         max-height: max(50%, 10px);
+         gap: 20px;
+         transition: 0.1s;
 
          &:after {
             content: "📎";
@@ -106,6 +107,9 @@
                text-decoration: underline;
                text-decoration-color: rgba(white, 0.8);
             }
+         }
+         &:has(.update_link_clickable):hover {
+            transform: scale(1.05);
          }
       }
    }
