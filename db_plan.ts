@@ -5,6 +5,10 @@ type FamilyMember = {
    DOB: Date;
    DOD?: Date;
    media?: Media;
+   parents?: {
+      mother?: FamilyMember["_id"];
+      father?: FamilyMember["_id"];
+   };
 };
 
 type Story = {

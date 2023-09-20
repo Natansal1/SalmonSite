@@ -1,4 +1,5 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
+import { countLoop } from "../functions";
 
 export function useTimeout() {
    const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -18,3 +19,8 @@ export function useTimeout() {
 
    return { clear, set };
 }
+
+export function useTimeouts(count: number) {
+   return countLoop(count, useTimeout);
+}
+

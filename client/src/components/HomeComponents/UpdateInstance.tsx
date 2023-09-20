@@ -20,7 +20,7 @@ const UpdateInstance: React.FC<UpdateInstanceProps> = (props) => {
 
    let dateString = endFormat ? `${endFormat.date} - ${startFormat.date}` : startFormat.date;
 
-   const randomBg = `rgba(255,${countLoop(2, () => random(0, 255)).join()}, 0.1)`;
+   const randomBg = `rgba(${countLoop(3, () => random(0, 200)).join()}, 0.4)`;
 
    return (
       <Grid

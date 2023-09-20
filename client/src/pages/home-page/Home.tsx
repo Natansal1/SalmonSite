@@ -18,6 +18,10 @@ const Home: React.FC = () => {
             האתר של סבתא שושי
          </Title>
          <div className="home_bottom_section">
+            <p className="home_text">
+               האתר המשפחתי נבנה ע"י סבתא שושי ללמוד וללמד את תולדות המשפחה ולשתף את כל בני המשפחה בשמחות בחוויות
+               ובארועים
+            </p>
             <img
                className="home_page_gif"
                src="/images/home-page-gif.gif"
