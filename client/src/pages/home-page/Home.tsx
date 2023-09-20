@@ -7,7 +7,7 @@ import "../../styles/pages/home-page.scss";
 
 const Home: React.FC = () => {
    return (
-      <PageWrapper className={"page home_page"}>
+      <PageWrapper className="page home_page">
          <Title
             lordIcon={{
                src: "https://cdn.lordicon.com/hjbsbdhw.json",

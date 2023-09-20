@@ -6,8 +6,10 @@
       min-height: 100%;
       padding: 3vh 2vw;
    }
-   
+
    .story_container {
+      height: 100%;
+      width: 100%;
       padding: 2vh;
       border-radius: 10px;
       border: 3px solid;
@@ -15,12 +17,12 @@
       display: flex;
       align-items: center;
       flex-direction: column;
-      min-width: 300px;
+      min-width: min(400px, 100%);
       gap: 1vh;
    }
 
    .images {
-      width: 40vh;
+      width: min(40vh, 100%);
    }
 
    .text_container {

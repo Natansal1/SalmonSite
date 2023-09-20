@@ -1,11 +1,12 @@
-import React from "react";
-import Story from "../components/Story";
+import React, { useState } from "react";
+import { Grid } from "@mui/material";
+import { useWindowListener } from "../common/hooks";
 import { StoryType } from "../common/types/ServerTypes/Story.type";
 import { MediaType } from "../common/types";
 import PageWrapper from "../components/PageWrapper/PageWrapper";
-import { Grid } from "@mui/material";
-import "../styles/pages/story.style.scss";
 import Title from "../components/Title";
+import Story from "../components/Story";
+import "../styles/pages/story.style.scss";
 
 const DbInfo: StoryType[] = [
    {
@@ -79,7 +80,48 @@ const DbInfo: StoryType[] = [
    },
 ];
 
+function calculateChildXS(count: number, minWidth: number, gap: number, containerWidth: number) {
+   minWidth = Math.min(minWidth, containerWidth);
+   let currentWidth = containerWidth,
+      rows = 1,
+      inRow = 0;
+
+   for (let i = 0; i < count; i++) {
+      currentWidth -= minWidth;
+      if (inRow > 0) currentWidth -= gap;
+      if (currentWidth < 0) {
+         rows++;
+         inRow = 1;
+         currentWidth = containerWidth - minWidth;
+      }
+   }
+
+   const inAll = Math.floor(count / rows);
+   let remaining = count % rows;
+   const xsArr: number[] = [];
+
+   for (let i = 0; i < rows; i++) {
+      const itemsInRow = inAll + (remaining > 0 ? 1 : 0);
+
+      for (let j = 0; j < itemsInRow; j++) {
+         xsArr.push(Math.round(12 / itemsInRow));
+      }
+
+      remaining--;
+   }
+
+   return xsArr;
+}
+
 const Stories: React.FC = () => {
+   const [childrenXs, setChildrenXs] = useState<number[]>(getXs);
+
+   useWindowListener("resize", () => setChildrenXs(getXs));
+
+   function getXs() {
+      return calculateChildXS(DbInfo.length, 450, 40, window.innerWidth - window.innerWidth / 50);
+   }
+
    return (
       <PageWrapper className="page page_scroll stories_page">
          <Title
@@ -93,11 +135,12 @@ const Stories: React.FC = () => {
          </Title>
          <Grid
             className="stories_container"
+            spacing={5}
             container
-            gap={5}
          >
             {DbInfo.map((story, index) => (
                <Story
+                  xs={childrenXs[index]}
                   key={"story_" + index}
                   story={story}
                />

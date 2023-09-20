@@ -48,6 +48,15 @@ $header-height: max(10vh, 80px);
    @return $neg-width $neg-width 0 $shadow-color, $width $neg-width 0 $shadow-color, $neg-width $width 0 $shadow-color,
       $width $width 0 $shadow-color;
 }
+
+@function switch($value, $mapArray) {
+   @each $case in $mapArray {
+      @if (map-get($case, case) == $value) {
+         @return map-get($case, then);
+      }
+   }
+}
+
 /* SHADOWS - BLUE */
 $shadow-color-hue: 194deg;
 $shadow-color-saturation: 41%;
@@ -102,5 +111,3 @@ $home_box_shadow: 0px 0.2px 0.2px hsl(240deg 9% 60% / 0.62), -0.2px 0.9px 1px -0
       opacity: 0;
    }
 }
-
-$test: rgb(1, 1, 1);
