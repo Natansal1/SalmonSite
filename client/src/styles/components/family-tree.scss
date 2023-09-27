@@ -1,0 +1,16 @@
+.family_tree {
+   direction: ltr;
+   flex: 1;
+   * {
+      direction: rtl;
+   }
+
+   .family_tree_node {
+      padding: 5%;
+   }
+
+   .tn_content {
+      height: 100%;
+      width: 100%;
+   }
+}

@@ -1,4 +1,3 @@
-
 import React from "react";
 import useLocationTransition from "../../common/hooks/useLocationTransition";
 

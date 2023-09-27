@@ -5,10 +5,12 @@ type FamilyMember = {
    DOB: Date;
    DOD?: Date;
    media?: Media;
+   gender: "male" | "female";
    parents?: {
       mother?: FamilyMember["_id"];
       father?: FamilyMember["_id"];
    };
+   partner?: FamilyMember["_id"];
 };
 
 type Story = {

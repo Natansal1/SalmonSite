@@ -42,7 +42,7 @@ const InsertPopup: React.FC<InsertPopupProps> = (props) => {
 
    return (
       <Dialog
-         open={true}
+         open={open}
          onClose={onClose}
       >
          <DialogTitle>הוספה</DialogTitle>
