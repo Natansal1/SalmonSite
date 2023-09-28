@@ -1,4 +1,13 @@
+@import "../variables.scss";
+
 .origin_tree {
+   height: calc(100vh - $header-height);
+
+   .tree_main_container {
+      width: 100%;
+      height: calc(100% - $title-height);
+   }
+
    .react-transform-wrapper {
       direction: ltr;
       width: 100%;

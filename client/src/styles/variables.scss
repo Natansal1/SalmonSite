@@ -33,6 +33,7 @@ $background-gray: #f2f2f8;
 
 /* SIZES */
 $header-height: max(10vh, 80px);
+$title-height: calc(min(25vh, 20vw) + 4vh);
 
 /* MIXINS */
 @mixin center-text {

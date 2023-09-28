@@ -12,5 +12,14 @@
    .tn_content {
       height: 100%;
       width: 100%;
+      transform: scale(1);
+
+      &.clickable {
+         cursor: pointer;
+         transition: 0.1s;
+         &:hover {
+            transform: scale(1.1);
+         }
+      }
    }
 }

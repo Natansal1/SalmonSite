@@ -6,14 +6,15 @@ import FamilyTreeNode, { TREE_NODE_SIZE } from "./FamilyTreeNode";
 
 import "../../styles/components/family-tree.scss";
 import clsx from "clsx";
+import { useOriginContext } from "../../pages/origin/OriginTree";
 
 interface FamilyTreeProps {
-   members: FamilyMember[];
    className?: string;
 }
 
 const FamilyTree: React.FC<FamilyTreeProps> = (props) => {
-   const { members, className } = props;
+   const { className } = props;
+   const { members } = useOriginContext();
 
    const nodes = useMemo<({ member: FamilyMember } & Node)[]>(() => {
       return members.map((member, _i, arr) => {

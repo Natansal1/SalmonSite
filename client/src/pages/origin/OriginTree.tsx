@@ -1,10 +1,14 @@
-import React, { useEffect, useRef } from "react";
+import React, { createContext, useEffect, useRef, useState } from "react";
 import PageWrapper from "../../components/PageWrapper/PageWrapper";
 import { TransformWrapper, TransformComponent, ReactZoomPanPinchContentRef } from "react-zoom-pan-pinch";
 import FamilyTree from "../../components/FamilyTree/FamilyTree";
 import { FamilyMember } from "../../common/types/ServerTypes/FamilyMember";
 
 import "../../styles/pages/origin.scss";
+import { useWindowListener } from "../../common/hooks";
+import Title from "../../components/Title";
+import { getInnerSize } from "../../common/functions";
+import { createContextHook } from "@hilma/tools";
 
 const temp: FamilyMember[] = [
    {
@@ -100,45 +104,78 @@ const temp: FamilyMember[] = [
    },
 ];
 
+export type OriginContextValue = {
+   members: FamilyMember[];
+   centerOnMember: (id: string) => void;
+};
+
+const OriginContext = createContext<OriginContextValue | null>(null);
+OriginContext.displayName = "originContext";
+export const useOriginContext = createContextHook(OriginContext);
+
 const OriginTree: React.FC = () => {
+   const [minScale, setMinScale] = useState<number | undefined>();
+   const [stepMultiplier, setStepMultiplier] = useState<number>(1);
    const zoomRef = useRef<ReactZoomPanPinchContentRef | null>(null);
-   const containerRef = useRef<HTMLDivElement>(null);
-
-   function sizeToFull() {
-      const tree = document.getElementsByClassName("origin_family_tree")[0];
-      if (!tree || !containerRef.current || !zoomRef.current) return;
-      const { height: containerHeight, width: containerWidth } = containerRef.current.getBoundingClientRect();
-      const { height: treeHeight, width: treeWidth } = tree.getBoundingClientRect();
-
-      const scaleY = containerHeight / treeHeight;
-      const scaleX = containerWidth / treeWidth;
-
-      const scale = Math.min(scaleX, scaleY);
-      console.log('scale: ', scale);
-      zoomRef.current.centerView(scale);
-   }
+   const containerRef = useRef<HTMLDivElement | null>(null);
 
    useEffect(sizeToFull, []);
 
+   useWindowListener("resize", sizeToFull);
+
+   function sizeToFull() {
+      //get the tree element
+      const tree = document.getElementsByClassName("origin_family_tree")[0];
+
+      if (!tree || !containerRef.current || !zoomRef.current) return;
+
+      //get the height and width of the page
+      const { height: containerHeight, width: containerWidth } = getInnerSize(containerRef.current);
+
+      //get the tree height and width (regardless of scale)
+      const { height: treeHeight, width: treeWidth } = getInnerSize(tree);
+
+      if (!treeWidth || !treeHeight) return;
+
+      const scaleY = containerHeight / treeHeight;
+      const scaleX = containerWidth / treeWidth;
+      const scale = Math.min(scaleX, scaleY);
+
+      if (!minScale) setMinScale(scale);
+
+      zoomRef.current.centerView(scale);
+   }
+
+   function centerOnMember(id: string) {
+      const elm = document.getElementById(id);
+      if (!elm || !zoomRef.current) return;
+      zoomRef.current.zoomToElement(elm);
+   }
+
    return (
-      <PageWrapper
-         className="page origin_tree"
-         ref={containerRef}
-      >
-         <TransformWrapper
-            initialScale={1}
-            minScale={1}
-            centerOnInit
-            ref={zoomRef}
-         >
-            <TransformComponent>
-               <FamilyTree
-                  members={temp}
-                  className="origin_family_tree"
-               />
-            </TransformComponent>
-         </TransformWrapper>
-      </PageWrapper>
+      <OriginContext.Provider value={{ members: temp, centerOnMember }}>
+         <PageWrapper className="page origin_tree">
+            <Title>העץ המשפחתי</Title>
+            <div
+               className="tree_main_container"
+               ref={(ref) => ((containerRef.current = ref), sizeToFull())}
+            >
+               <TransformWrapper
+                  centerOnInit
+                  ref={zoomRef}
+                  minScale={minScale}
+                  doubleClick={{
+                     disabled: true,
+                  }}
+                  limitToBounds
+               >
+                  <TransformComponent>
+                     <FamilyTree className="origin_family_tree" />
+                  </TransformComponent>
+               </TransformWrapper>
+            </div>
+         </PageWrapper>
+      </OriginContext.Provider>
    );
 };
 
