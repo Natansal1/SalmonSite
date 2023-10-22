@@ -1,11 +1,17 @@
 import React, { createContext, useEffect, useRef, useState } from "react";
 import PageWrapper from "../../components/PageWrapper/PageWrapper";
-import { TransformWrapper, TransformComponent, ReactZoomPanPinchContentRef } from "react-zoom-pan-pinch";
+import {
+   TransformWrapper,
+   TransformComponent,
+   ReactZoomPanPinchContentRef,
+   ReactZoomPanPinchRef,
+} from "react-zoom-pan-pinch";
 import FamilyTree from "../../components/FamilyTree/FamilyTree";
 import { FamilyMember } from "../../common/types/ServerTypes/FamilyMember";
+import { motion } from "framer-motion";
 
 import "../../styles/pages/origin.scss";
-import { useWindowListener } from "../../common/hooks";
+import { useTimeout, useWindowListener } from "../../common/hooks";
 import Title from "../../components/Title";
 import { getInnerSize } from "../../common/functions";
 import { createContextHook } from "@hilma/tools";
@@ -114,10 +120,12 @@ OriginContext.displayName = "originContext";
 export const useOriginContext = createContextHook(OriginContext);
 
 const OriginTree: React.FC = () => {
-   const [minScale, setMinScale] = useState<number | undefined>();
+   const [minScale, setMinScale] = useState<{ scale?: number }>({});
+   const [titleVisible, setTitleVisible] = useState<boolean>(true);
    const [stepMultiplier, setStepMultiplier] = useState<number>(1);
    const zoomRef = useRef<ReactZoomPanPinchContentRef | null>(null);
    const containerRef = useRef<HTMLDivElement | null>(null);
+   const titleVisTimeout = useTimeout();
 
    useEffect(sizeToFull, []);
 
@@ -141,9 +149,14 @@ const OriginTree: React.FC = () => {
       const scaleX = containerWidth / treeWidth;
       const scale = Math.min(scaleX, scaleY);
 
-      if (!minScale) setMinScale(scale);
+      if (!minScale) setMinScale({ scale });
 
       zoomRef.current.centerView(scale);
+   }
+
+   function handleTitleMove(minScale: number | undefined, scale: number) {
+      if (scale === minScale) titleVisTimeout.set(() => setTitleVisible(true), 50);
+      else if (minScale !== undefined) titleVisTimeout.set(() => setTitleVisible(false), 50);
    }
 
    function centerOnMember(id: string) {
@@ -155,7 +168,21 @@ const OriginTree: React.FC = () => {
    return (
       <OriginContext.Provider value={{ members: temp, centerOnMember }}>
          <PageWrapper className="page origin_tree">
-            <Title>העץ המשפחתי</Title>
+            <motion.div
+               animate={titleVisible ? "visible" : "hidden"}
+               initial="visible"
+               variants={{
+                  visible: {
+                     height: "auto",
+                  },
+                  hidden: {
+                     overflow: "hidden",
+                     height: "0",
+                  },
+               }}
+            >
+               <Title>העץ המשפחתי</Title>
+            </motion.div>
             <div
                className="tree_main_container"
                ref={(ref) => ((containerRef.current = ref), sizeToFull())}
@@ -163,11 +190,12 @@ const OriginTree: React.FC = () => {
                <TransformWrapper
                   centerOnInit
                   ref={zoomRef}
-                  minScale={minScale}
+                  minScale={minScale.scale}
                   doubleClick={{
                      disabled: true,
                   }}
                   limitToBounds
+                  onTransformed={(_r, state) => handleTitleMove(minScale.scale, state.scale)}
                >
                   <TransformComponent>
                      <FamilyTree className="origin_family_tree" />
