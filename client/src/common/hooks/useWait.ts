@@ -12,8 +12,8 @@ export function useWait() {
          .case("ms", () => 1)
          .done();
 
-      return new Promise<string>((resolve) => {
-         timeout.set(() => resolve(`waited ${time} milliseconds`), time * multiply);
+      return new Promise<string>((resolve, reject) => {
+         timeout.set(() => resolve(`waited ${time} milliseconds`), time * multiply, reject);
       });
    };
 }

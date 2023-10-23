@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useRef, useState } from "react";
+import React, { createContext, useCallback, useEffect, useRef, useState } from "react";
 import PageWrapper from "../../components/PageWrapper/PageWrapper";
 import {
    TransformWrapper,
@@ -11,10 +11,11 @@ import { FamilyMember } from "../../common/types/ServerTypes/FamilyMember";
 import { motion } from "framer-motion";
 
 import "../../styles/pages/origin.scss";
-import { useTimeout, useWindowListener } from "../../common/hooks";
+import { useTimeout, useWait, useWindowListener } from "../../common/hooks";
 import Title from "../../components/Title";
 import { getInnerSize } from "../../common/functions";
 import { createContextHook } from "@hilma/tools";
+import clsx from "clsx";
 
 const temp: FamilyMember[] = [
    {
@@ -120,22 +121,39 @@ OriginContext.displayName = "originContext";
 export const useOriginContext = createContextHook(OriginContext);
 
 const OriginTree: React.FC = () => {
-   const [minScale, setMinScale] = useState<{ scale?: number }>({});
+   const minScale = useRef<number | null>(null);
    const [titleVisible, setTitleVisible] = useState<boolean>(true);
-   const [stepMultiplier, setStepMultiplier] = useState<number>(1);
    const zoomRef = useRef<ReactZoomPanPinchContentRef | null>(null);
    const containerRef = useRef<HTMLDivElement | null>(null);
    const titleVisTimeout = useTimeout();
+   const wait = useWait();
 
    useEffect(sizeToFull, []);
+
+   useEffect(() => {
+      if (titleVisible === true && minScale.current)
+         wait(200).then(() => zoomRef.current?.centerView(minScale.current ?? 0, 300, "easeInOutCubic"));
+   }, [titleVisible]);
 
    useWindowListener("resize", sizeToFull);
 
    function sizeToFull() {
+      if (!zoomRef.current) return;
+
+      const scale = calcMinScale();
+
+      if (!scale) return;
+
+      if (!minScale.current) {
+         minScale.current = scale;
+      }
+   }
+
+   function calcMinScale() {
       //get the tree element
       const tree = document.getElementsByClassName("origin_family_tree")[0];
 
-      if (!tree || !containerRef.current || !zoomRef.current) return;
+      if (!tree || !containerRef.current) return null;
 
       //get the height and width of the page
       const { height: containerHeight, width: containerWidth } = getInnerSize(containerRef.current);
@@ -143,20 +161,18 @@ const OriginTree: React.FC = () => {
       //get the tree height and width (regardless of scale)
       const { height: treeHeight, width: treeWidth } = getInnerSize(tree);
 
-      if (!treeWidth || !treeHeight) return;
+      if (!treeWidth || !treeHeight) return null;
 
       const scaleY = containerHeight / treeHeight;
       const scaleX = containerWidth / treeWidth;
       const scale = Math.min(scaleX, scaleY);
 
-      if (!minScale) setMinScale({ scale });
-
-      zoomRef.current.centerView(scale);
+      return scale;
    }
 
-   function handleTitleMove(minScale: number | undefined, scale: number) {
-      if (scale === minScale) titleVisTimeout.set(() => setTitleVisible(true), 50);
-      else if (minScale !== undefined) titleVisTimeout.set(() => setTitleVisible(false), 50);
+   function handleTitleMove(scale: number) {
+      if (scale === minScale.current) titleVisTimeout.set(() => setTitleVisible(true), 50);
+      else if (minScale.current !== null) titleVisTimeout.set(() => setTitleVisible(false), 50);
    }
 
    function centerOnMember(id: string) {
@@ -174,6 +190,7 @@ const OriginTree: React.FC = () => {
                variants={{
                   visible: {
                      height: "auto",
+                     overflow: "hidden",
                   },
                   hidden: {
                      overflow: "hidden",
@@ -184,18 +201,18 @@ const OriginTree: React.FC = () => {
                <Title>העץ המשפחתי</Title>
             </motion.div>
             <div
-               className="tree_main_container"
+               className={clsx("tree_main_container", { full: !titleVisible })}
                ref={(ref) => ((containerRef.current = ref), sizeToFull())}
             >
                <TransformWrapper
+                  minScale={minScale.current ?? undefined}
                   centerOnInit
                   ref={zoomRef}
-                  minScale={minScale.scale}
                   doubleClick={{
                      disabled: true,
                   }}
                   limitToBounds
-                  onTransformed={(_r, state) => handleTitleMove(minScale.scale, state.scale)}
+                  onWheel={(r) => handleTitleMove(r.state.scale)}
                >
                   <TransformComponent>
                      <FamilyTree className="origin_family_tree" />

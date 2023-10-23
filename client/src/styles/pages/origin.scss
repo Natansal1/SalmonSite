@@ -4,8 +4,13 @@
    height: calc(100vh - $header-height);
 
    .tree_main_container {
+      transition: 200ms;
       width: 100%;
       height: calc(100% - $title-height);
+
+      &.full {
+         height: 100%;
+      }
    }
 
    .react-transform-wrapper {
