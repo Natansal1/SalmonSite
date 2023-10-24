@@ -56,7 +56,7 @@ const FamilyTree: React.FC<FamilyTreeProps> = (props) => {
       <ReactFamilyTree
          className={clsx(className, "family_tree")}
          nodes={nodes}
-         rootId={members.find((val) => !val.parents)?._id ?? members[0]._id}
+         rootId={(nodes.find((mem) => mem.children.length === 0) ?? nodes[nodes.length - 1]).id}
          renderNode={(node) => (
             <FamilyTreeNode
                node={node as ExtNode & { member: FamilyMember }}

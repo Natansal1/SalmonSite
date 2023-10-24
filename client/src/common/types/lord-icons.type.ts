@@ -7,6 +7,7 @@ type LordIconProps = {
    trigger?: LordIconTrigger;
    colors?: string;
    delay?: string | number;
+   state?: string;
 };
 
 type LordIconElement = React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement> & LordIconProps;
@@ -16,6 +17,7 @@ declare global {
    namespace JSX {
       interface IntrinsicElements {
          "lord-icon": LordIconElement;
+         "lord-icon1": LordIconElement;
       }
    }
 }

@@ -16,30 +16,33 @@ import Title from "../../components/Title";
 import { getInnerSize } from "../../common/functions";
 import { createContextHook } from "@hilma/tools";
 import clsx from "clsx";
+import FullscreenExitIcon from "@mui/icons-material/FullscreenExit";
+import { IconButton } from "@mui/material";
 
 const temp: FamilyMember[] = [
    {
       _id: "1",
-      firstName: "John",
-      lastName: "Doe",
+      firstName: "משה",
+      lastName: "סולומון",
       DOB: new Date("1980-01-15"),
       gender: "male",
       partner: "2",
    },
    {
       _id: "2",
-      firstName: "Jane",
-      lastName: "Doe",
+      firstName: "גינה",
+      lastName: "סולומון",
       DOB: new Date("1982-03-20"),
       gender: "female",
       partner: "1",
    },
    {
       _id: "3",
-      firstName: "Alice",
-      lastName: "Smith",
-      DOB: new Date("1990-05-10"),
-      gender: "female",
+      firstName: "אשר ישעיהו",
+      lastName: "שלמון",
+      DOB: new Date("1910-05-10"),
+      gender: "male",
+      partner: "4",
       parents: {
          mother: "2",
          father: "1",
@@ -47,66 +50,153 @@ const temp: FamilyMember[] = [
    },
    {
       _id: "4",
-      firstName: "Michael",
-      lastName: "Johnson",
-      DOB: new Date("1985-09-25"),
-      gender: "male",
-      partner: "5",
+      firstName: "לאה",
+      lastName: "שלמון",
+      DOB: new Date("1915-03-07"),
+      gender: "female",
+      partner: "3",
       parents: {
-         mother: "2",
-         father: "1",
+         mother: "5",
+         father: "6",
       },
    },
    {
       _id: "5",
-      firstName: "Emily",
-      lastName: "Davis",
+      firstName: "אהרון",
+      lastName: "ארנשטיין",
       DOB: new Date("1987-12-12"),
-      gender: "female",
-      partner: "4",
+      gender: "male",
+      partner: "6",
    },
    {
       _id: "6",
-      firstName: "Daniel",
-      lastName: "Brown",
+      firstName: "מלכה",
+      lastName: "ארנשטיין",
       DOB: new Date("1992-07-08"),
-      gender: "male",
-      parents: {
-         mother: "5",
-         father: "4",
-      },
+      gender: "female",
    },
    {
       _id: "7",
-      firstName: "Sophia",
-      lastName: "Wilson",
+      firstName: "יצחק",
+      lastName: "ויס",
       DOB: new Date("1994-04-03"),
-      gender: "female",
-      parents: {
-         mother: "5",
-         father: "4",
-      },
+      gender: "male",
+      partner: "8",
    },
    {
       _id: "8",
-      firstName: "Sophia",
-      lastName: "Wilson",
+      firstName: "שושנה",
+      lastName: "ויס",
       DOB: new Date("1994-04-03"),
-      gender: "male",
-      parents: {
-         mother: "5",
-         father: "4",
-      },
+      gender: "female",
+      partner: "7",
    },
    {
       _id: "9",
-      firstName: "Alice",
-      lastName: "Smith",
+      firstName: "יהודה",
+      lastName: "הראל",
+      DOB: new Date("1990-05-10"),
+      gender: "male",
+      parents: {
+         mother: "8",
+         father: "7",
+      },
+      partner: "10",
+   },
+   {
+      _id: "10",
+      firstName: "עליזה",
+      lastName: "הראל",
       DOB: new Date("1990-05-10"),
       gender: "female",
       parents: {
-         mother: "2",
-         father: "1",
+         father: "11",
+         mother: "12",
+      },
+      partner: "9",
+   },
+   {
+      _id: "11",
+      firstName: "דוד יהודה",
+      lastName: "שוורץ",
+      DOB: new Date("1990-05-10"),
+      gender: "male",
+      partner: "12",
+   },
+   {
+      _id: "12",
+      firstName: "מרים",
+      lastName: "שוורץ",
+      DOB: new Date("1990-05-10"),
+      gender: "female",
+      partner: "11",
+   },
+   {
+      _id: "13",
+      firstName: "שושנה",
+      lastName: "שלמון",
+      DOB: new Date("1990-05-10"),
+      gender: "female",
+      parents: {
+         mother: "9",
+         father: "10",
+      },
+      partner: "14",
+   },
+   {
+      _id: "14",
+      firstName: "ישראל",
+      lastName: "שלמון",
+      DOB: new Date("1990-05-10"),
+      gender: "male",
+      parents: {
+         mother: "4",
+         father: "3",
+      },
+      partner: "13",
+   },
+   {
+      _id: "15",
+      firstName: "ישעיהו אשר",
+      lastName: "שלמון",
+      DOB: new Date("1990-05-10"),
+      gender: "male",
+      parents: {
+         mother: "13",
+         father: "14",
+      },
+   },
+   {
+      _id: "16",
+      firstName: "מיכאל",
+      lastName: "שלמון",
+      DOB: new Date("1990-05-10"),
+      gender: "male",
+      parents: {
+         mother: "13",
+         father: "14",
+      },
+   },
+   {
+      _id: "17",
+      firstName: "עירית",
+      lastName: "שלמון",
+      DOB: new Date("1990-05-10"),
+      gender: "female",
+      parents: {
+         mother: "13",
+         father: "14",
+      },
+   },
+   {
+      _id: "18",
+      firstName: "יוני",
+      lastName: "שלמון",
+      DOB: new Date("1990-05-10"),
+      gender: "male",
+      parents: {
+         mother: "13",
+         father: "14",
       },
    },
 ];
@@ -163,8 +253,8 @@ const OriginTree: React.FC = () => {
 
       if (!treeWidth || !treeHeight) return null;
 
-      const scaleY = containerHeight / treeHeight;
-      const scaleX = containerWidth / treeWidth;
+      const scaleY = containerHeight / treeHeight - ((containerHeight / treeHeight) % 0.01);
+      const scaleX = containerWidth / treeWidth - ((containerWidth / treeWidth) % 0.01);
       const scale = Math.min(scaleX, scaleY);
 
       return scale;
@@ -198,7 +288,16 @@ const OriginTree: React.FC = () => {
                   },
                }}
             >
-               <Title>העץ המשפחתי</Title>
+               <Title
+                  lordIcon={{
+                     src: "https://cdn.lordicon.com/bzrhdlij.json",
+                     colors: "primary:#121331,secondary:#16c79e",
+                     trigger: "hover",
+                     type: 1,
+                  }}
+               >
+                  העץ המשפחתי
+               </Title>
             </motion.div>
             <div
                className={clsx("tree_main_container", { full: !titleVisible })}
@@ -208,17 +307,27 @@ const OriginTree: React.FC = () => {
                   minScale={minScale.current ?? undefined}
                   centerOnInit
                   ref={zoomRef}
-                  doubleClick={{
-                     disabled: true,
-                  }}
                   limitToBounds
-                  onWheel={(r) => handleTitleMove(r.state.scale)}
+                  onZoom={(r) => handleTitleMove(r.state.scale)}
                >
                   <TransformComponent>
                      <FamilyTree className="origin_family_tree" />
                   </TransformComponent>
                </TransformWrapper>
             </div>
+            {!titleVisible && (
+               <IconButton
+                  className="expand_tree_btn"
+                  onClick={() => {
+                     if (zoomRef.current && minScale.current) {
+                        zoomRef.current.centerView(minScale.current);
+                        setTitleVisible(true);
+                     }
+                  }}
+               >
+                  <FullscreenExitIcon />
+               </IconButton>
+            )}
          </PageWrapper>
       </OriginContext.Provider>
    );

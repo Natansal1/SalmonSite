@@ -19,6 +19,8 @@ interface TitleProps {
       colors: string;
       delay?: number;
       style?: React.HTMLAttributes<HTMLElement>["style"];
+      state?: string;
+      type?: 0 | 1;
    };
 }
 
@@ -51,15 +53,27 @@ const Title: React.FC<TitleProps> = (props) => {
             {showReturn && !isMobile && <ReturnButton />}
             <section className="title_main_section">
                <h1>{children}</h1>
-               {lordIcon && window.innerWidth > 600 && (
-                  <lord-icon
-                     src={lordIcon.src}
-                     trigger={lordIcon.trigger}
-                     delay={lordIcon.delay}
-                     colors={lordIcon.colors}
-                     style={{ height: "100px", width: "100px", ...lordIcon.style }}
-                  />
-               )}
+               {lordIcon &&
+                  window.innerWidth > 600 &&
+                  (lordIcon.type === 1 ? (
+                     <lord-icon1
+                        src={lordIcon.src}
+                        trigger={lordIcon.trigger}
+                        delay={lordIcon.delay}
+                        colors={lordIcon.colors}
+                        style={{ height: "100px", width: "100px", ...lordIcon.style }}
+                        state={lordIcon.state}
+                     />
+                  ) : (
+                     <lord-icon
+                        src={lordIcon.src}
+                        trigger={lordIcon.trigger}
+                        delay={lordIcon.delay}
+                        colors={lordIcon.colors}
+                        style={{ height: "100px", width: "100px", ...lordIcon.style }}
+                        state={lordIcon.state}
+                     />
+                  ))}
             </section>
             {subtitle && <h2>{subtitle}</h2>}
          </TitleBackground>
