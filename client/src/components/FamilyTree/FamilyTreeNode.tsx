@@ -11,8 +11,8 @@ interface FamilyTreeNodeProps {
 }
 
 export const TREE_NODE_SIZE = {
-   height: 350,
-   width: 300,
+   height: 700,
+   width: 600,
 };
 
 const FamilyTreeNode: React.FC<FamilyTreeNodeProps> = (props) => {
@@ -21,7 +21,7 @@ const FamilyTreeNode: React.FC<FamilyTreeNodeProps> = (props) => {
    } = props;
    const { centerOnMember } = useOriginContext();
 
-   const { firstName, lastName, media, DOB, DOD, gender, hasInfoPage } = member;
+   const { firstName, lastName, media, DOB, DOD, gender, hasPage } = member;
 
    const initials = firstName[0] + lastName[0];
    const dates = DOD ? `${formatDate(DOB).date} - ${formatDate(DOD).date}` : `${formatDate(DOB).date}`;
@@ -34,11 +34,12 @@ const FamilyTreeNode: React.FC<FamilyTreeNodeProps> = (props) => {
             ...TREE_NODE_SIZE,
             position: "absolute",
             transform: `translate(${left * (TREE_NODE_SIZE.width / 2)}px, ${top * (TREE_NODE_SIZE.height / 2)}px)`,
+            padding: `${TREE_NODE_SIZE.height / 5}px ${TREE_NODE_SIZE.width / 5}px`,
          }}
          id={id}
-         onDoubleClick={() => centerOnMember(id)}
+         onDoubleClick={(e) => (e.stopPropagation(), centerOnMember(id))}
       >
-         <Card className={clsx("tn_content", { clickable: hasInfoPage }, gender)}>
+         <Card className={clsx("tn_content", { clickable: hasPage }, gender)}>
             <CardHeader
                avatar={
                   <Avatar

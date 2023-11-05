@@ -13,5 +13,5 @@ export type FamilyMember = {
       father?: FamilyMember["_id"];
    };
    partner?: FamilyMember["_id"];
-   hasInfoPage?: boolean;
+   hasPage?: boolean;
 };

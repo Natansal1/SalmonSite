@@ -4,7 +4,7 @@
 //    _id: string;
 
 import { Type } from "class-transformer";
-import { IsDateString, IsObject, IsOptional, IsString } from "class-validator";
+import { IsBoolean, IsDateString, IsObject, IsOptional, IsString } from "class-validator";
 import { MediaDto } from "src/common/dto";
 
 export class CreateFamilyMemberDto {
@@ -20,6 +20,10 @@ export class CreateFamilyMemberDto {
    @IsDateString()
    @IsOptional()
    DOD?: Date;
+
+   @IsOptional()
+   @IsBoolean()
+   hasPage?: boolean;
 
    @IsOptional()
    @IsObject()

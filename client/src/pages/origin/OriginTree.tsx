@@ -271,6 +271,13 @@ const OriginTree: React.FC = () => {
       zoomRef.current.zoomToElement(elm);
    }
 
+   function fullScreen() {
+      if (zoomRef.current && minScale.current) {
+         zoomRef.current.centerView(minScale.current);
+         setTitleVisible(true);
+      }
+   }
+
    return (
       <OriginContext.Provider value={{ members: temp, centerOnMember }}>
          <PageWrapper className="page origin_tree">
@@ -302,13 +309,21 @@ const OriginTree: React.FC = () => {
             <div
                className={clsx("tree_main_container", { full: !titleVisible })}
                ref={(ref) => ((containerRef.current = ref), sizeToFull())}
+               onDoubleClick={() => fullScreen()}
             >
                <TransformWrapper
+                  initialScale={minScale.current ?? 0.5}
                   minScale={minScale.current ?? undefined}
                   centerOnInit
                   ref={zoomRef}
                   limitToBounds
                   onZoom={(r) => handleTitleMove(r.state.scale)}
+                  wheel={{
+                     smoothStep: 0.001,
+                  }}
+                  doubleClick={{
+                     disabled: true,
+                  }}
                >
                   <TransformComponent>
                      <FamilyTree className="origin_family_tree" />
@@ -318,12 +333,7 @@ const OriginTree: React.FC = () => {
             {!titleVisible && (
                <IconButton
                   className="expand_tree_btn"
-                  onClick={() => {
-                     if (zoomRef.current && minScale.current) {
-                        zoomRef.current.centerView(minScale.current);
-                        setTitleVisible(true);
-                     }
-                  }}
+                  onClick={fullScreen}
                >
                   <FullscreenExitIcon />
                </IconButton>

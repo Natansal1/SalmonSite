@@ -23,6 +23,9 @@ export class FamilyMember {
    @Prop({ type: Date })
    DOD?: Date;
 
+   @Prop({ type: Boolean })
+   hasPage?: boolean;
+
    @Prop({ type: { type: String, src: String } })
    media?: Media;
 }
