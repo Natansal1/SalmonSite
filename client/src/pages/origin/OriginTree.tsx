@@ -269,6 +269,7 @@ const OriginTree: React.FC = () => {
       const elm = document.getElementById(id);
       if (!elm || !zoomRef.current) return;
       zoomRef.current.zoomToElement(elm);
+      setTitleVisible(false);
    }
 
    function fullScreen() {

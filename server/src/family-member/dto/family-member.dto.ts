@@ -22,10 +22,6 @@ export class CreateFamilyMemberDto {
    DOD?: Date;
 
    @IsOptional()
-   @IsBoolean()
-   hasPage?: boolean;
-
-   @IsOptional()
    @IsObject()
    @Type(() => MediaDto)
    media?: MediaDto;

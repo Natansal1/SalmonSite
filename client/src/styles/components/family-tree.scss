@@ -33,10 +33,10 @@
       }
 
       &[style*="height: 1px;"]::after {
-         height: 5px !important;
+         height: 5px;
       }
       &[style*="width: 1px;"]::after {
-         width: 5px !important;
+         width: 5px;
       }
    }
 }

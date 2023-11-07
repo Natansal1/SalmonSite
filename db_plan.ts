@@ -11,7 +11,6 @@ type FamilyMember = {
       father?: FamilyMember["_id"];
    };
    partner?: FamilyMember["_id"];
-   hasPage?: boolean;
 };
 
 type Story = {

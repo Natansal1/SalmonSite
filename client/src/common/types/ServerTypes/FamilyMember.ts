@@ -13,5 +13,5 @@ export type FamilyMember = {
       father?: FamilyMember["_id"];
    };
    partner?: FamilyMember["_id"];
-   hasPage?: boolean;
+   hasPage?: boolean; //Does not exist in the DB, created from aggregation
 };

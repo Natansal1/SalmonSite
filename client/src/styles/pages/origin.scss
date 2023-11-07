@@ -40,11 +40,18 @@
 
    .expand_tree_btn {
       position: fixed;
-      bottom: 0;
-      left: 0;
+      bottom: 1vh;
+      left: 1vh;
       z-index: 100;
+      background-color: rgba($light-green, 0.7);
+
+      &:hover {
+         background-color: $light-green;
+      }
+      transition: 0.1s;
+
       > svg {
-         font-size: 10vh;
+         font-size: 8vh;
          color: white;
       }
    }

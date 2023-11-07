@@ -50,13 +50,48 @@ const FamilyTree: React.FC<FamilyTreeProps> = (props) => {
       });
    }, [members]);
 
+   function deepestChild() {
+      const roots = members.filter((val) => !val.parents || (!val.parents.father && !val.parents.mother));
+      return (roots
+         .map((root) => recursiveChildrenDepth(root._id))
+         .reduce((prev, curr) => (prev[1] > curr[1] ? prev : curr), [null as FamilyMember | null, 0]) ?? [
+         members[0],
+         0,
+      ])[0]!._id;
+   }
+
+   function recursiveChildrenDepth(parentId: string, depth: number = 0): [FamilyMember | null, number] {
+      let parent: FamilyMember | null = null;
+      const children: FamilyMember[] = [];
+      for (let i = 0; i < members.length; i++) {
+         if (members[i]._id === parentId) parent = members[i];
+         else if (members[i].parents?.father === parentId || members[i].parents?.mother === parentId)
+            children.push(members[i]);
+      }
+      if (parent === null) throw new Error("No member found with given ID");
+
+      //exit cond - if there are no children
+      if (children.length === 0) return [parent, depth];
+
+      const deepest = children
+         .map((child) => recursiveChildrenDepth(child._id, depth + 1))
+         .reduce(
+            (prev, curr) => (prev[0] !== null ? (prev[1] < curr[1] ? curr : prev) : curr),
+            [null as null | FamilyMember, depth],
+         );
+
+      return deepest;
+   }
+
+   const deepestId = useMemo(deepestChild, []);
+
    if (!members.length) return null;
 
    return (
       <ReactFamilyTree
          className={clsx(className, "family_tree")}
          nodes={nodes}
-         rootId={(nodes.find((mem) => mem.children.length === 0) ?? nodes[nodes.length - 1]).id}
+         rootId={deepestId}
          renderNode={(node) => (
             <FamilyTreeNode
                node={node as ExtNode & { member: FamilyMember }}
