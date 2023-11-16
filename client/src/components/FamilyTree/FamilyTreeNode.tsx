@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useRef } from "react";
 import { ExtNode } from "relatives-tree/lib/types";
 import { FamilyMember } from "../../common/types/ServerTypes/FamilyMember";
-import { Avatar, Button, Card, CardContent, CardHeader, CardMedia } from "@mui/material";
-import { MySwitch, formatDate, retSwitch } from "../../common/functions";
+import { Avatar, Card, CardContent, CardHeader, CardMedia } from "@mui/material";
+import { formatDate, } from "../../common/functions";
 import { MediaType } from "../../common/types";
 import clsx from "clsx";
 import { useOriginContext } from "../../pages/origin/OriginTree";
@@ -22,6 +22,7 @@ const FamilyTreeNode: React.FC<FamilyTreeNodeProps> = (props) => {
    const { centerOnMember } = useOriginContext();
 
    const { firstName, lastName, media, DOB, DOD, gender, hasPage } = member;
+   const elm = useRef<HTMLDivElement>(null);
 
    const initials = firstName[0] + lastName[0];
    const dates = DOD ? `${formatDate(DOB).date} - ${formatDate(DOD).date}` : `${formatDate(DOB).date}`;
@@ -36,8 +37,8 @@ const FamilyTreeNode: React.FC<FamilyTreeNodeProps> = (props) => {
             transform: `translate(${left * (TREE_NODE_SIZE.width / 2)}px, ${top * (TREE_NODE_SIZE.height / 2)}px)`,
             padding: `${TREE_NODE_SIZE.height / 5}px ${TREE_NODE_SIZE.width / 5}px`,
          }}
-         id={id}
-         onDoubleClick={(e) => (e.stopPropagation(), centerOnMember(id))}
+         onDoubleClick={(e) => (e.stopPropagation(), centerOnMember(elm.current))}
+         ref={elm}
       >
          <Card className={clsx("tn_content", { clickable: hasPage }, gender)}>
             <CardHeader

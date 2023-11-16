@@ -203,7 +203,7 @@ const temp: FamilyMember[] = [
 
 export type OriginContextValue = {
    members: FamilyMember[];
-   centerOnMember: (id: string) => void;
+   centerOnMember: (elm: HTMLElement | null) => void;
 };
 
 const OriginContext = createContext<OriginContextValue | null>(null);
@@ -222,7 +222,7 @@ const OriginTree: React.FC = () => {
 
    useEffect(() => {
       if (titleVisible === true && minScale.current)
-         wait(200).then(() => zoomRef.current?.centerView(minScale.current ?? 0, 300, "easeInOutCubic"));
+         wait(200).then(() => (zoomRef.current?.zoomToElement(zoomRef.current.instance.contentComponent ?? "div"), zoomRef.current?.centerView(minScale.current ?? 0, 300, "easeInOutCubic")));
    }, [titleVisible]);
 
    useWindowListener("resize", sizeToFull);
@@ -265,8 +265,7 @@ const OriginTree: React.FC = () => {
       else if (minScale.current !== null) titleVisTimeout.set(() => setTitleVisible(false), 50);
    }
 
-   function centerOnMember(id: string) {
-      const elm = document.getElementById(id);
+   function centerOnMember(elm: HTMLElement | null) {
       if (!elm || !zoomRef.current) return;
       zoomRef.current.zoomToElement(elm);
       setTitleVisible(false);
@@ -310,12 +309,11 @@ const OriginTree: React.FC = () => {
             <div
                className={clsx("tree_main_container", { full: !titleVisible })}
                ref={(ref) => ((containerRef.current = ref), sizeToFull())}
-               onDoubleClick={() => fullScreen()}
+               onDoubleClick={fullScreen}
             >
                <TransformWrapper
                   initialScale={minScale.current ?? 0.5}
                   minScale={minScale.current ?? undefined}
-                  centerOnInit
                   ref={zoomRef}
                   limitToBounds
                   onZoom={(r) => handleTitleMove(r.state.scale)}
