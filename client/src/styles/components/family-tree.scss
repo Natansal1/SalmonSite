@@ -1,6 +1,9 @@
+@import "../variables.scss";
+
 .family_tree {
    direction: ltr;
    flex: 1;
+
    * {
       direction: rtl;
    }
@@ -13,13 +16,16 @@
       &.clickable {
          cursor: pointer;
          transition: 0.1s;
+
          &:hover {
             transform: scale(1.1);
          }
       }
    }
+
    i {
       color: transparent;
+
       &::after {
          content: "";
          position: absolute;
@@ -35,8 +41,65 @@
       &[style*="height: 1px;"]::after {
          height: 5px;
       }
+
       &[style*="width: 1px;"]::after {
          width: 5px;
+      }
+   }
+}
+
+.family_tree_node {
+   .node_inner {
+      all: unset;
+      display: block;
+      position: relative;
+      width: 100%;
+      height: 100%;
+
+      &.node_page {
+         cursor: pointer;
+      }
+
+      .node_avatar {
+         width: 100%;
+         height: 100%;
+
+         &.male {
+            border: 2px solid $light-blue;
+         }
+
+         &.female {
+            border: 2px solid pink;
+         }
+
+      }
+
+      .node_content {
+         position: absolute;
+         width: 100%;
+         max-width: 120%;
+         padding: 1%;
+         top: 100%;
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+         justify-content: space-evenly;
+         background-color: rgba(white, 0.3);
+         backdrop-filter: blur(5px);
+
+         .name {
+            font-weight: 700;
+         }
+
+         .dates {
+            color: rgba($color: #000000, $alpha: 0.8);
+         }
+
+         .name,
+         .dates {
+            font-size: 1em;
+            text-align: center;
+         }
       }
    }
 }

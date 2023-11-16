@@ -18,6 +18,7 @@ import { createContextHook } from "@hilma/tools";
 import clsx from "clsx";
 import FullscreenExitIcon from "@mui/icons-material/FullscreenExit";
 import { IconButton } from "@mui/material";
+import { TREE_NODE_SIZE } from "../../components/FamilyTree/FamilyTreeNode";
 
 const temp: FamilyMember[] = [
    {
@@ -253,11 +254,10 @@ const OriginTree: React.FC = () => {
 
       if (!treeWidth || !treeHeight) return null;
 
-      const scaleY = containerHeight / treeHeight - ((containerHeight / treeHeight) % 0.01);
+      //-(height / 2) to height to simulate padding
+      const scaleY = (containerHeight - (TREE_NODE_SIZE.height / 2)) / treeHeight - (((containerHeight - (TREE_NODE_SIZE.height / 2)) / treeHeight) % 0.01);
       const scaleX = containerWidth / treeWidth - ((containerWidth / treeWidth) % 0.01);
-      const scale = Math.min(scaleX, scaleY);
-
-      return scale;
+      return Math.min(scaleX, scaleY);
    }
 
    function handleTitleMove(scale: number) {
@@ -316,6 +316,7 @@ const OriginTree: React.FC = () => {
                   minScale={minScale.current ?? undefined}
                   ref={zoomRef}
                   limitToBounds
+                  centerOnInit
                   onZoom={(r) => handleTitleMove(r.state.scale)}
                   wheel={{
                      smoothStep: 0.001,
