@@ -46,6 +46,7 @@ const HeaderLinks: React.FC = () => {
    }
 
    function handleClick(page: Page) {
+      setDrawOpen(false);
       navigate(`/${page === "home" ? "" : page}`);
       setSlider(page);
    }
