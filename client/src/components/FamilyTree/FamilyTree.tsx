@@ -1,12 +1,14 @@
 import React, { useMemo } from "react";
+import clsx from "clsx";
 import ReactFamilyTree from "react-family-tree";
 import { Node, ExtNode, Gender, RelType } from "relatives-tree/lib/types";
 import { FamilyMember } from "../../common/types/ServerTypes/FamilyMember";
 import FamilyTreeNode, { TREE_NODE_SIZE } from "./FamilyTreeNode";
 
-import "../../styles/components/family-tree.scss";
-import clsx from "clsx";
+import { loadingDeepestId, loadingTree } from "./loadingTree";
+import LoadingNode from "./LoadingNode";
 import { useOriginContext } from "../../pages/origin/OriginTree";
+import "../../styles/components/family-tree.scss";
 
 interface FamilyTreeProps {
    className?: string;
@@ -16,7 +18,8 @@ const FamilyTree: React.FC<FamilyTreeProps> = (props) => {
    const { className } = props;
    const { members } = useOriginContext();
 
-   const nodes = useMemo<({ member: FamilyMember } & Node)[]>(() => {
+   const nodes = useMemo<({ member: FamilyMember } & Node)[] | null>(() => {
+      if (!members) return null;
       return members.map((member, _i, arr) => {
          const { _id, parents, gender, partner } = member;
 
@@ -51,6 +54,7 @@ const FamilyTree: React.FC<FamilyTreeProps> = (props) => {
    }, [members]);
 
    function deepestChild() {
+      if (!members) return null;
       const roots = members.filter((val) => !val.parents || (!val.parents.father && !val.parents.mother));
       return (roots
          .map((root) => recursiveChildrenDepth(root._id))
@@ -63,10 +67,10 @@ const FamilyTree: React.FC<FamilyTreeProps> = (props) => {
    function recursiveChildrenDepth(parentId: string, depth: number = 0): [FamilyMember | null, number] {
       let parent: FamilyMember | null = null;
       const children: FamilyMember[] = [];
-      for (let i = 0; i < members.length; i++) {
-         if (members[i]._id === parentId) parent = members[i];
-         else if (members[i].parents?.father === parentId || members[i].parents?.mother === parentId)
-            children.push(members[i]);
+      for (let i = 0; i < members!.length; i++) {
+         if (members![i]._id === parentId) parent = members![i];
+         else if (members![i].parents?.father === parentId || members![i].parents?.mother === parentId)
+            children.push(members![i]);
       }
       if (parent === null) throw new Error("No member found with given ID");
 
@@ -83,11 +87,9 @@ const FamilyTree: React.FC<FamilyTreeProps> = (props) => {
       return deepest;
    }
 
-   const deepestId = useMemo(deepestChild, []);
+   const deepestId = useMemo(deepestChild, [members]);
 
-   if (!members.length) return null;
-
-   return (
+   return nodes && members && deepestId ? (
       <ReactFamilyTree
          className={clsx(className, "family_tree")}
          nodes={nodes}
@@ -96,6 +98,19 @@ const FamilyTree: React.FC<FamilyTreeProps> = (props) => {
             <FamilyTreeNode
                node={node as ExtNode & { member: FamilyMember }}
                key={node.id}
+            />
+         )}
+         {...TREE_NODE_SIZE}
+      />
+   ) : (
+      <ReactFamilyTree
+         className={clsx(className, "family_tree")}
+         nodes={loadingTree as Node[]}
+         rootId={loadingDeepestId}
+         renderNode={(node) => (
+            <LoadingNode
+               node={node}
+               key={node.id + "_loading"}
             />
          )}
          {...TREE_NODE_SIZE}

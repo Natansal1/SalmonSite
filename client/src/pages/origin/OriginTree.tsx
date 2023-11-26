@@ -21,7 +21,7 @@ import Title from "../../components/Title";
 import "../../styles/pages/origin.scss";
 
 export type OriginContextValue = {
-   members: FamilyMember[];
+   members: FamilyMember[] | undefined;
    centerOnMember: (elm: HTMLElement | null) => void;
 };
 
@@ -33,7 +33,7 @@ const OriginTree: React.FC = () => {
    const minScale = useRef<number | null>(null);
    const [titleVisible, setTitleVisible] = useState<boolean>(true);
    const zoomRef = useRef<ReactZoomPanPinchContentRef | null>(null);
-   const containerRef = useRef<HTMLDivElement | null>(null);
+   const containerRef = useRef<HTMLDivElement>(null);
    const titleVisTimeout = useTimeout();
    const wait = useWait();
 
@@ -57,19 +57,17 @@ const OriginTree: React.FC = () => {
    useWindowListener("resize", sizeToFull);
 
    function sizeToFull() {
-      if (!zoomRef.current || status !== "success") return;
-
       const scale = calcMinScale();
 
       if (!scale) return;
 
-      if (!minScale.current) {
+      if (!minScale.current && status == "success") {
          minScale.current = scale;
-         wait(200).then(() => {
-            zoomRef.current?.zoomToElement(zoomRef.current.instance.contentComponent ?? "div");
-            zoomRef.current?.centerView(scale, 300, "easeInOutCubic");
-         });
       }
+      wait(200).then(() => {
+         zoomRef.current?.zoomToElement(zoomRef.current.instance.contentComponent ?? "div");
+         zoomRef.current?.centerView(scale, 300, "easeInOutCubic");
+      });
    }
 
    function calcMinScale() {
@@ -112,8 +110,6 @@ const OriginTree: React.FC = () => {
       }
    }
 
-   if (status !== "success") return <h1>Loading</h1>;
-
    return (
       <OriginContext.Provider value={{ members, centerOnMember }}>
          <PageWrapper className="page origin_tree">
@@ -144,7 +140,7 @@ const OriginTree: React.FC = () => {
             </motion.div>
             <div
                className={clsx("tree_main_container", { full: !titleVisible })}
-               ref={(ref) => ((containerRef.current = ref), sizeToFull())}
+               ref={containerRef}
                onDoubleClick={fullScreen}
             >
                <TransformWrapper
