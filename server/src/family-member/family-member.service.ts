@@ -1,8 +1,10 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
+import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { FamilyMember } from "./schemes/family-member.schema";
-import mongoose, { Model, Mongoose } from "mongoose";
+import mongoose, { Model } from "mongoose";
 import { CreateFamilyMemberDto } from "./dto/family-member.dto";
+import { PatchConfig } from "src/common/types";
+import { validate, validateOrReject } from "class-validator";
 
 @Injectable()
 export class FamilyMemberService {
@@ -69,5 +71,13 @@ export class FamilyMemberService {
       const newMemberDocument = await this.familyMemberModel.create(member);
       const { _id } = await newMemberDocument.save();
       return _id;
+   }
+
+   async patchOne(_id: string, obj: Partial<CreateFamilyMemberDto>, config?: PatchConfig) {
+      if (config?.replace) {
+         return await this.familyMemberModel.findOneAndReplace({ _id }, obj, { new: true });
+      } else {
+         return await this.familyMemberModel.findOneAndUpdate({ _id }, { $set: obj }, { new: true });
+      }
    }
 }

@@ -1,206 +1,24 @@
-import React, { createContext, useCallback, useEffect, useRef, useState } from "react";
-import PageWrapper from "../../components/PageWrapper/PageWrapper";
-import {
-   TransformWrapper,
-   TransformComponent,
-   ReactZoomPanPinchContentRef,
-   ReactZoomPanPinchRef,
-} from "react-zoom-pan-pinch";
-import FamilyTree from "../../components/FamilyTree/FamilyTree";
-import { FamilyMember } from "../../common/types/ServerTypes/FamilyMember";
+import React, { createContext, useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-
-import "../../styles/pages/origin.scss";
-import { useTimeout, useWait, useWindowListener } from "../../common/hooks";
-import Title from "../../components/Title";
-import { getInnerSize } from "../../common/functions";
-import { createContextHook } from "@hilma/tools";
 import clsx from "clsx";
+import axios from "axios";
+import { TransformWrapper, TransformComponent, ReactZoomPanPinchContentRef } from "react-zoom-pan-pinch";
 import FullscreenExitIcon from "@mui/icons-material/FullscreenExit";
 import { IconButton } from "@mui/material";
-import { TREE_NODE_SIZE } from "../../components/FamilyTree/FamilyTreeNode";
+import { useQuery } from "@tanstack/react-query";
+import { createContextHook } from "@hilma/tools";
 
-const temp: FamilyMember[] = [
-   {
-      _id: "1",
-      firstName: "משה",
-      lastName: "סולומון",
-      DOB: new Date("1980-01-15"),
-      gender: "male",
-      partner: "2",
-   },
-   {
-      _id: "2",
-      firstName: "גינה",
-      lastName: "סולומון",
-      DOB: new Date("1982-03-20"),
-      gender: "female",
-      partner: "1",
-   },
-   {
-      _id: "3",
-      firstName: "אשר ישעיהו",
-      lastName: "שלמון",
-      DOB: new Date("1910-05-10"),
-      gender: "male",
-      partner: "4",
-      parents: {
-         mother: "2",
-         father: "1",
-      },
-   },
-   {
-      _id: "4",
-      firstName: "לאה",
-      lastName: "שלמון",
-      DOB: new Date("1915-03-07"),
-      gender: "female",
-      partner: "3",
-      parents: {
-         mother: "5",
-         father: "6",
-      },
-   },
-   {
-      _id: "5",
-      firstName: "אהרון",
-      lastName: "ארנשטיין",
-      DOB: new Date("1987-12-12"),
-      gender: "male",
-      partner: "6",
-   },
-   {
-      _id: "6",
-      firstName: "מלכה",
-      lastName: "ארנשטיין",
-      DOB: new Date("1992-07-08"),
-      gender: "female",
-   },
-   {
-      _id: "7",
-      firstName: "יצחק",
-      lastName: "ויס",
-      DOB: new Date("1994-04-03"),
-      gender: "male",
-      partner: "8",
-   },
-   {
-      _id: "8",
-      firstName: "שושנה",
-      lastName: "ויס",
-      DOB: new Date("1994-04-03"),
-      gender: "female",
-      partner: "7",
-   },
-   {
-      _id: "9",
-      firstName: "יהודה",
-      lastName: "הראל",
-      DOB: new Date("1990-05-10"),
-      gender: "male",
-      parents: {
-         mother: "8",
-         father: "7",
-      },
-      partner: "10",
-   },
-   {
-      _id: "10",
-      firstName: "עליזה",
-      lastName: "הראל",
-      DOB: new Date("1990-05-10"),
-      gender: "female",
-      parents: {
-         father: "11",
-         mother: "12",
-      },
-      partner: "9",
-   },
-   {
-      _id: "11",
-      firstName: "דוד יהודה",
-      lastName: "שוורץ",
-      DOB: new Date("1990-05-10"),
-      gender: "male",
-      partner: "12",
-   },
-   {
-      _id: "12",
-      firstName: "מרים",
-      lastName: "שוורץ",
-      DOB: new Date("1990-05-10"),
-      gender: "female",
-      partner: "11",
-   },
-   {
-      _id: "13",
-      firstName: "שושנה",
-      lastName: "שלמון",
-      DOB: new Date("1990-05-10"),
-      gender: "female",
-      parents: {
-         mother: "9",
-         father: "10",
-      },
-      partner: "14",
-   },
-   {
-      _id: "14",
-      firstName: "ישראל",
-      lastName: "שלמון",
-      DOB: new Date("1990-05-10"),
-      gender: "male",
-      parents: {
-         mother: "4",
-         father: "3",
-      },
-      partner: "13",
-   },
-   {
-      _id: "15",
-      firstName: "ישעיהו אשר",
-      lastName: "שלמון",
-      DOB: new Date("1990-05-10"),
-      gender: "male",
-      parents: {
-         mother: "13",
-         father: "14",
-      },
-   },
-   {
-      _id: "16",
-      firstName: "מיכאל",
-      lastName: "שלמון",
-      DOB: new Date("1990-05-10"),
-      gender: "male",
-      parents: {
-         mother: "13",
-         father: "14",
-      },
-   },
-   {
-      _id: "17",
-      firstName: "עירית",
-      lastName: "שלמון",
-      DOB: new Date("1990-05-10"),
-      gender: "female",
-      parents: {
-         mother: "13",
-         father: "14",
-      },
-   },
-   {
-      _id: "18",
-      firstName: "יוני",
-      lastName: "שלמון",
-      DOB: new Date("1990-05-10"),
-      gender: "male",
-      parents: {
-         mother: "13",
-         father: "14",
-      },
-   },
-];
+import { FamilyMember } from "../../common/types/ServerTypes/FamilyMember";
+import { useTimeout, useWait, useWindowListener } from "../../common/hooks";
+import { getInnerSize } from "../../common/functions";
+import { queryKeys } from "../../common/enums";
+
+import { TREE_NODE_SIZE } from "../../components/FamilyTree/FamilyTreeNode";
+import PageWrapper from "../../components/PageWrapper/PageWrapper";
+import FamilyTree from "../../components/FamilyTree/FamilyTree";
+import Title from "../../components/Title";
+
+import "../../styles/pages/origin.scss";
 
 export type OriginContextValue = {
    members: FamilyMember[];
@@ -219,17 +37,27 @@ const OriginTree: React.FC = () => {
    const titleVisTimeout = useTimeout();
    const wait = useWait();
 
-   useEffect(sizeToFull, []);
+   const { data: members, status } = useQuery({
+      queryFn: async () => (await axios.get<FamilyMember[]>("/api/family-member")).data,
+      queryKey: [queryKeys.ORIGIN_MEMBERS],
+   });
+
+   useEffect(sizeToFull, [members]);
 
    useEffect(() => {
       if (titleVisible === true && minScale.current)
-         wait(200).then(() => (zoomRef.current?.zoomToElement(zoomRef.current.instance.contentComponent ?? "div"), zoomRef.current?.centerView(minScale.current ?? 0, 300, "easeInOutCubic")));
+         wait(200).then(
+            () => (
+               zoomRef.current?.zoomToElement(zoomRef.current.instance.contentComponent ?? "div"),
+               zoomRef.current?.centerView(minScale.current ?? 0, 300, "easeInOutCubic")
+            ),
+         );
    }, [titleVisible]);
 
    useWindowListener("resize", sizeToFull);
 
    function sizeToFull() {
-      if (!zoomRef.current) return;
+      if (!zoomRef.current || status !== "success") return;
 
       const scale = calcMinScale();
 
@@ -237,6 +65,10 @@ const OriginTree: React.FC = () => {
 
       if (!minScale.current) {
          minScale.current = scale;
+         wait(200).then(() => {
+            zoomRef.current?.zoomToElement(zoomRef.current.instance.contentComponent ?? "div");
+            zoomRef.current?.centerView(scale, 300, "easeInOutCubic");
+         });
       }
    }
 
@@ -255,7 +87,9 @@ const OriginTree: React.FC = () => {
       if (!treeWidth || !treeHeight) return null;
 
       //-(height / 2) to height to simulate padding
-      const scaleY = (containerHeight - (TREE_NODE_SIZE.height / 2)) / treeHeight - (((containerHeight - (TREE_NODE_SIZE.height / 2)) / treeHeight) % 0.01);
+      const scaleY =
+         (containerHeight - TREE_NODE_SIZE.height / 2) / treeHeight -
+         (((containerHeight - TREE_NODE_SIZE.height / 2) / treeHeight) % 0.01);
       const scaleX = containerWidth / treeWidth - ((containerWidth / treeWidth) % 0.01);
       return Math.min(scaleX, scaleY);
    }
@@ -278,8 +112,10 @@ const OriginTree: React.FC = () => {
       }
    }
 
+   if (status !== "success") return <h1>Loading</h1>;
+
    return (
-      <OriginContext.Provider value={{ members: temp, centerOnMember }}>
+      <OriginContext.Provider value={{ members, centerOnMember }}>
          <PageWrapper className="page origin_tree">
             <motion.div
                animate={titleVisible ? "visible" : "hidden"}

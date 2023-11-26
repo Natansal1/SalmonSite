@@ -1,6 +1,6 @@
-import { Body, Controller, Get, Param, Post } from "@nestjs/common";
+import { Body, Controller, Get, Param, Patch, Post } from "@nestjs/common";
 import { FamilyMemberService } from "./family-member.service";
-import { CreateFamilyMemberDto } from "./dto/family-member.dto";
+import { CreateFamilyMemberDto, CreateManyFamilyMemberDto, PatchFamilyMemberDTO } from "./dto/family-member.dto";
 
 @Controller("family-member")
 export class FamilyMemberController {
@@ -19,5 +19,18 @@ export class FamilyMemberController {
    async addOne(@Body() createMember: CreateFamilyMemberDto) {
       const id = await this.familyMemberService.addOne(createMember);
       return { id };
+   }
+
+   @Post("many")
+   async addMany(@Body() createMembers: CreateManyFamilyMemberDto) {
+      const { members } = createMembers;
+      const promised = await Promise.all(members.map((member) => this.familyMemberService.addOne(member)));
+      return promised.map((id) => ({ id }));
+   }
+
+   @Patch(":id")
+   patchOne(@Param("id") id: string, @Body() body: PatchFamilyMemberDTO) {
+      const { member, replace } = body;
+      return this.familyMemberService.patchOne(id, member, { replace });
    }
 }

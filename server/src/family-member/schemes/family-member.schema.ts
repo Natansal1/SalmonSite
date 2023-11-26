@@ -25,6 +25,24 @@ export class FamilyMember {
 
    @Prop({ type: { type: String, src: String } })
    media?: Media;
+
+   @Prop({ type: String, isRequired: true })
+   gender: "male" | "female";
+
+   @Prop({ type: ObjectId, ref: "FamilyMembers" })
+   partner?: string;
+
+   @Prop({
+      type: {
+         mother: { type: ObjectId, ref: "FamilyMembers" },
+         father: { type: ObjectId, ref: "FamilyMembers" },
+      },
+      _id: false,
+   })
+   parents: {
+      mother?: string;
+      father?: string;
+   };
 }
 
 export const FamilyMemberSchema = SchemaFactory.createForClass(FamilyMember);

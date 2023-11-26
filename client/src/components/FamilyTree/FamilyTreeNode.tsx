@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { ExtNode } from "relatives-tree/lib/types";
 import { FamilyMember } from "../../common/types/ServerTypes/FamilyMember";
 import { Avatar } from "@mui/material";
-import { formatDate, } from "../../common/functions";
+import { formatDate } from "../../common/functions";
 import clsx from "clsx";
 import { useOriginContext } from "../../pages/origin/OriginTree";
 import { useNavigate } from "react-router-dom";
@@ -26,11 +26,13 @@ const FamilyTreeNode: React.FC<FamilyTreeNodeProps> = (props) => {
    const elm = useRef<HTMLDivElement>(null);
 
    const initials = firstName[0] + lastName[0];
-   const dates = DOD ? `${formatDate(DOB).date} - ${formatDate(DOD).date}` : `${formatDate(DOB).date}`;
+   const dates = DOD
+      ? `${formatDate(new Date(DOB)).date} - ${formatDate(new Date(DOD)).date}`
+      : `${formatDate(new Date(DOB)).date}`;
    const fullName = `${firstName} ${lastName}`;
 
    function handleClick() {
-      if (hasPage) navigate(`/origin/${id}`)
+      if (hasPage) navigate(`/origin/${id}`);
    }
 
    return (
@@ -45,13 +47,19 @@ const FamilyTreeNode: React.FC<FamilyTreeNodeProps> = (props) => {
          onDoubleClick={(e) => (e.stopPropagation(), centerOnMember(elm.current))}
          ref={elm}
       >
-         <button className="node_inner" onClick={handleClick}>
+         <button
+            className="node_inner"
+            onClick={handleClick}
+         >
             <Avatar
                src={media?.src}
                alt={initials}
                className={clsx("node_avatar", gender)}
             />
-            <div className="node_content" style={{ fontSize: TREE_NODE_SIZE.width / 10 }}>
+            <div
+               className="node_content"
+               style={{ fontSize: TREE_NODE_SIZE.width / 10 }}
+            >
                <span className="name">{fullName}</span>
                <span className="dates">{dates}</span>
             </div>

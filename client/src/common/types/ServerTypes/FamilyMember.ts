@@ -4,8 +4,8 @@ export type FamilyMember = {
    _id: string;
    firstName: string;
    lastName: string;
-   DOB: Date;
-   DOD?: Date;
+   DOB: Date | string;
+   DOD?: Date | string;
    media?: Omit<Media, "people">;
    gender: "male" | "female";
    parents?: {
