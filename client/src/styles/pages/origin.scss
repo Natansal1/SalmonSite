@@ -55,4 +55,10 @@
          color: white;
       }
    }
+
+   .origin_mobile {
+      height: calc(100% - $title-height);
+      position: relative;
+      z-index: 2;
+   }
 }

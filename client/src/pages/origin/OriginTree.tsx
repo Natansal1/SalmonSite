@@ -19,6 +19,7 @@ import FamilyTree from "../../components/FamilyTree/FamilyTree";
 import Title from "../../components/Title";
 
 import "../../styles/pages/origin.scss";
+import { useUserContext } from "../../contexts/UserContextProvider.context";
 
 export type OriginContextValue = {
    members: FamilyMember[] | undefined;
@@ -36,6 +37,8 @@ const OriginTree: React.FC = () => {
    const containerRef = useRef<HTMLDivElement>(null);
    const titleVisTimeout = useTimeout();
    const wait = useWait();
+
+   const { isMobile } = useUserContext();
 
    const { data: members, status } = useQuery({
       queryFn: async () => (await axios.get<FamilyMember[]>("/api/family-member")).data,
@@ -138,30 +141,34 @@ const OriginTree: React.FC = () => {
                   העץ המשפחתי
                </Title>
             </motion.div>
-            <div
-               className={clsx("tree_main_container", { full: !titleVisible })}
-               ref={containerRef}
-               onDoubleClick={fullScreen}
-            >
-               <TransformWrapper
-                  initialScale={minScale.current ?? 0.5}
-                  minScale={minScale.current ?? undefined}
-                  ref={zoomRef}
-                  limitToBounds
-                  centerOnInit
-                  onZoom={(r) => handleTitleMove(r.state.scale)}
-                  wheel={{
-                     smoothStep: 0.001,
-                  }}
-                  doubleClick={{
-                     disabled: true,
-                  }}
+            {isMobile ? (
+               <div className="origin_mobile">ihhjk</div>
+            ) : (
+               <div
+                  className={clsx("tree_main_container", { full: !titleVisible })}
+                  ref={containerRef}
+                  onDoubleClick={fullScreen}
                >
-                  <TransformComponent>
-                     <FamilyTree className="origin_family_tree" />
-                  </TransformComponent>
-               </TransformWrapper>
-            </div>
+                  <TransformWrapper
+                     initialScale={minScale.current ?? 0.5}
+                     minScale={minScale.current ?? undefined}
+                     ref={zoomRef}
+                     limitToBounds
+                     centerOnInit
+                     onZoom={(r) => handleTitleMove(r.state.scale)}
+                     wheel={{
+                        smoothStep: 0.001,
+                     }}
+                     doubleClick={{
+                        disabled: true,
+                     }}
+                  >
+                     <TransformComponent>
+                        <FamilyTree className="origin_family_tree" />
+                     </TransformComponent>
+                  </TransformWrapper>
+               </div>
+            )}
             {!titleVisible && (
                <IconButton
                   className="expand_tree_btn"
